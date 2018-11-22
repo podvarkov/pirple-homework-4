@@ -1,4 +1,10 @@
+/**
+ * users handlers
+ */
+
 const {notFound} = require('./index')
+const db = require('../lib/db')
+const uuid = require('../lib/uuid')
 
 // users route container
 let users = {};
