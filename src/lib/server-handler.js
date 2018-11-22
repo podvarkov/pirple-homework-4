@@ -2,6 +2,7 @@ const url = require('url');
 const StringDecoder = require('string_decoder').StringDecoder;
 const routes = require('../routes');
 const log = require('util').debuglog('server')
+const {safeParse} = require('./helpers')
 
 const serverHandler = (req, res) => {
   const parsedUrl = url.parse(req.url, true);
@@ -15,12 +16,17 @@ const serverHandler = (req, res) => {
 
   req.on('data', (data) => {
     buffer += decoder.write(data);
-    console.log(data, decoder.write(data))
   });
 
   req.on('end', () => {
     buffer += decoder.end();
-    const req = {path, method, queryParams, headers, body: buffer};
+    const req = {
+      path,
+      method,
+      queryParams,
+      headers,
+      body: safeParse(buffer)
+    };
 
     const chosenRoute = routes[path] || routes.notFound;
 

@@ -1,11 +1,13 @@
 const environments = {
   staging: {
     port: 3000,
-    envName: 'staging'
+    envName: 'staging',
+    hashingSecret : 'thisIsASecret'
   },
   production: {
     port: 5000,
-    envName: 'production'
+    envName: 'production',
+    hashingSecret : 'thisIsASecret'
   }
 };
 

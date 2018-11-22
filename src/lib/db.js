@@ -10,6 +10,7 @@ const _read = promisify(fs.readFile)
 const _create = promisify(fs.writeFile)
 const _remove = promisify(fs.unlink)
 const _list = promisify(fs.readdir)
+const {merge} = require('./helpers').f
 const BASE_DIR = path.join(__dirname, "../../.data")
 
 const getFullPath = (dir, name) => path.join(BASE_DIR, dir, name) + '.json';
@@ -30,12 +31,19 @@ const remove = (dir, name) => _remove(getFullPath(dir, name))
 //merges exists data with given object
 const update = async (dir, name, data) => {
   const file = await read(dir, name)
-  return create(dir, name, Object.assign(file, data))
+  return create(dir, name, merge(file, data))
 }
 
 //returns all files in specified dir
 const list = (dir) => {
   return _list(path.join(BASE_DIR, dir))
+}
+
+//returns all files content in specified dir
+const getAll = async (dir) => {
+  const files = await list(dir)
+  const content = files.map(async (name) => await read(dir, name.replace('.json', '')))
+  return Promise.all(content)
 }
 
 
@@ -44,5 +52,6 @@ module.exports = {
   update,
   read,
   list,
+  getAll,
   create
 }
