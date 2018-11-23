@@ -45,8 +45,12 @@ const f = {
 const validator = {
   existenseOf: (key, msg) => (data) => {
     if (typeof data[key] !== "undefined" && data[key] !== null) {
-      if (!!data[key].trim()) {
+      if (typeof data[key] === "string" && !!data[key].trim()) {
         return null
+      } else {
+        if (!!data[key]) {
+          return null
+        }
       }
     }
     return {[key]: msg || "cant be blank"}
