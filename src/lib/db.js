@@ -66,10 +66,12 @@ const updateUser = (user) => {
   return update('users', user.id, user)
     .catch(e => {throw new InternalError('cant update user', e)})
 }
+
 const removeUser = (id) => {
   return remove('users', id)
     .catch(e => {throw new InternalError('cant remove user', e)})
 }
+
 const getUsers = () => getAll('users')
 
 //session helpers
@@ -93,7 +95,12 @@ const readToken = (token) => {
 }
 
 
+//products helpers
+const getProducts = () => getAll('products')
+
+
 module.exports = {
+  create,
   users: {
     createUser,
     getUser,
@@ -105,6 +112,8 @@ module.exports = {
     createSession,
     readToken,
     removeSession
+  },
+  products: {
+    getProducts
   }
-
 }
