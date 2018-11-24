@@ -2,11 +2,11 @@
  * users handlers
  */
 
-//TODO validate via tokens
-
-const {notFound} = require('./index')
 const db = require('../lib/db')
-const {uuid, f, validator, hash} = require('../lib/helpers')
+const {hash, parseToken} = require('../lib/helpers')
+const validator = require('../lib/validator')
+const f = require('../lib/functions')
+const {NotFoundError, ValidationError, OkResponse} = require('../lib/response')
 const log = require('util').debuglog('users')
 
 
@@ -15,82 +15,107 @@ let users = {};
 
 //creates users
 users.post = (req, cb) => {
-  //check if username exists
-  db.getAll('users')
-    .then(users => {
-      users = users.filter(user => user.username === req.body.username)
-      if (users.length) {
-        cb(400, {error: "username must be unique"})
-      } else {
-        //validate required fields
-        const errors = validator.validationSet(
-          validator.existenseOf('email'),
-          validator.existenseOf('name'),
-          validator.existenseOf('password'),
-          validator.existenseOf('address'),
-          validator.existenseOf('username'),
-        )(req.body)
 
-        if (errors.length) {
-          cb(400, {message: "validation error", errors})
-        } else {
-          const id = uuid()
-          //add uuid
-          let user = f.assoc('id', id, req.body)
-          //hash password
-          user = f.assoc('password', hash(user.password), user)
-          db.create('users', id, user)
-            .then(() => cb(200, f.dissoc('password', user)))
-            .catch(() => cb(500, {error: 'can not create user'}))
-        }
-      }
-    })
-    .catch(() => cb(500, {error: "can not read users"}))
-}
+  //validate required fields
+  const valid = validator.validate({
+    email: [validator.notBlank],
+    name: [validator.notBlank],
+    password: [validator.notBlank],
+    address: [validator.notBlank],
+    username: [validator.notBlank],
+  }, req.body)
 
-//returns user info by id in querystring without password
-users.get = (req, cb) => {
-  db.read('users', req.queryParams.id)
-    .then(user => cb(200, f.dissoc('password', user)))
-    .catch(() => cb(404, {error: 'user not found'}))
-}
-
-//update user's data by id
-users.put = (req, cb) => {
-  let userInfo = f.dissoc('id', req.body)
-
-  //validate all existing fields except id from request
-  const errors = validator.validationSet(
-    ...Object.keys(userInfo).map(key => validator.existenseOf(key))
-  )(userInfo)
-
-  if (errors.length) {
-    cb(400, {message: "validation error", errors})
+  if (!valid) {
+    cb(new ValidationError())
   } else {
-    //hash password if changed
-    userInfo = userInfo.password
-      ? f.assoc('password', hash(userInfo.password), userInfo)
-      : userInfo
+    //check if username exists
+    db.users.getUsers()
+      .then(users => {
+        users = f.filter(f.propEq('username', req.body.username), users)
 
-    //update data
-    db.update('users', req.body.id, userInfo)
-      .then(() => cb(200, userInfo))
-      .catch((e) => {
-        cb(404, {error: 'user not found'})
+        if (users.length) {
+          cb(new ValidationError("username must be unique"))
+        } else {
+          return db.users.createUser(req.body)
+            .then((user) => cb(new OkResponse(f.dissoc('password', user))))
+        }
+      })
+      .catch(e => {
+        log(e.originError)
+        cb(e)
       })
   }
 }
 
-//delete user by id
-//TODO delete all relative data
-users.delete = (req, cb) => {
-  db.remove('users', req.queryParams.id)
-    .then(() => cb(200, {id: req.queryParams.id}))
-    .catch(() => cb(404, {error: 'user not found'}))
+
+//update user's data by id
+users.put = (req, cb) => {
+
+  //parse token
+  const token = parseToken(req.headers.authorization)
+
+  db.session.readToken(token)
+    .then(({userId}) => db.users.getUser(userId))
+    .then(({id}) => {
+      // validate all existing fields from request
+      const schema = Object.keys(req.body).reduce((acc, key) => {
+        return f.assoc(key, [validator.notBlank], acc)
+      }, {})
+      const valid = validator.validate(schema, req.body)
+
+      if (!valid) {
+        cb(new ValidationError())
+      } else {
+        //hash password if changed
+        const user = req.body.password
+          ? f.assoc('password', hash(req.body.password), req.body)
+          : req.body
+        //update data and return user without password
+        return db.users.updateUser(f.assoc('id', id, user))
+          .then(() => cb(new OkResponse(f.dissoc('password', user))))
+      }
+    })
+    .catch((e) => {
+      log(e.originError)
+      cb(e)
+    })
 }
+
+//delete user
+users.delete = (req, cb) => {
+
+  //parse token
+  const token = parseToken(req.headers.authorization)
+
+  db.session.readToken(token)
+    .then(({userId}) => db.users.getUser(userId))
+    .then(user => {
+      return Promise.all((user.sessions || []).map(db.session.removeSession))
+        .then(() => user.id)
+        .catch(() => user.id)
+    })
+    .then(db.users.removeUser)
+    .then(() => cb(new OkResponse()))
+    .catch(e => {
+      log(e.originError)
+      cb(e)
+    })
+}
+
+//get user info
+users.get = (req, cb) => {
+  //parse token
+  const token = parseToken(req.headers.authorization)
+  db.session.readToken(token)
+    .then(({userId}) => db.users.getUser(userId))
+    .then(user => cb(new OkResponse(f.dissoc('password', user))))
+    .catch(e => cb(e))
+}
+
+
 
 // routing function for users routes
 module.exports = (req, cb) => {
-  const handler = users[req.method] || notFound
+  const handler = users[req.method] || ((req, cb) => cb(new NotFoundError()))
   handler(req, cb)
 }

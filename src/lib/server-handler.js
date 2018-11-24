@@ -30,11 +30,11 @@ const serverHandler = (req, res) => {
 
     const chosenRoute = routes[path] || routes.notFound;
 
-    chosenRoute(req, (status = 200, payload = {}) => {
+    chosenRoute(req, (response) => {
       log(req)
       res.setHeader('Content-Type', 'application/json');
-      res.writeHeader(status);
-      res.end(JSON.stringify(payload));
+      res.writeHeader(response.status);
+      res.end(response.json());
     })
   });
 };
