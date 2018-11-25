@@ -1,3 +1,5 @@
+const assert = require('assert')
+
 //helper functions
 const _curry = (fn) => {
   const arity = fn.length

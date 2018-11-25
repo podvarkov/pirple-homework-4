@@ -17,7 +17,7 @@ const BASE_DIR = path.join(__dirname, "../../.data")
 const getFullPath = (dir, name) => path.join(BASE_DIR, dir, name) + '.json';
 const parse = JSON.parse;
 const stringify = JSON.stringify;
-const {NotAuthorizedError, InternalError} = require('../lib/response')
+const {NotAuthorizedError, InternalError, NotFoundError} = require('../lib/response')
 
 //creates file with specified name in specified dir
 const create = (dir, name, data) => {
@@ -57,19 +57,25 @@ const createUser = (user) => {
   user = f.assoc('password', hash(user.password), user)
   return create('users', id, user)
     .then(() => user)
-    .catch(e => {throw new InternalError('cant create user', e)})
+    .catch(e => {
+      throw new InternalError('cant create user', e)
+    })
 }
 
 const getUser = (id) => read('users', id)
 
 const updateUser = (user) => {
   return update('users', user.id, user)
-    .catch(e => {throw new InternalError('cant update user', e)})
+    .catch(e => {
+      throw new InternalError('cant update user', e)
+    })
 }
 
 const removeUser = (id) => {
   return remove('users', id)
-    .catch(e => {throw new InternalError('cant remove user', e)})
+    .catch(e => {
+      throw new InternalError('cant remove user', e)
+    })
 }
 
 const getUsers = () => getAll('users')
@@ -97,7 +103,32 @@ const readToken = (token) => {
 
 //products helpers
 const getProducts = () => getAll('products')
+const getProduct = (id) => read('products', id)
 
+//cart helpers
+const getCart = (userId) => {
+  return read('carts', userId).catch(e => [])
+}
+
+const addToCart = async (userId, productId) => {
+  if (!productId) throw new NotFoundError('Product not found')
+  const product = await getProduct(productId)
+  const cart = await getCart(userId)
+  return create('carts', userId, [...cart, product])
+    .catch(e => {
+      throw new InternalError('cant add to cart', e)
+    })
+}
+
+const removeFromCart = async (userId, productId) => {
+  if (!productId) throw new NotFoundError('Product not found')
+  let cart = await getCart(userId)
+  cart = f.remove(f.propEq('id', productId), cart)
+  return create('carts', userId, cart)
+    .catch(e => {
+      throw new InternalError('cant update from cart', e)
+    })
+}
 
 module.exports = {
   create,
@@ -115,5 +146,10 @@ module.exports = {
   },
   products: {
     getProducts
+  },
+  cart: {
+    getCart,
+    addToCart,
+    removeFromCart
   }
 }
