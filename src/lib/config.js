@@ -2,12 +2,14 @@ const environments = {
   staging: {
     port: 3000,
     envName: 'staging',
-    hashingSecret : 'thisIsASecret'
+    hashingSecret : 'thisIsASecret',
+    stripeKey: 'sk_test_lo1ZlgnxuMnxKs89tEVTl8H6'
   },
   production: {
     port: 5000,
     envName: 'production',
-    hashingSecret : 'thisIsASecret'
+    hashingSecret : 'thisIsASecret',
+    stripeKey: 'sk_test_lo1ZlgnxuMnxKs89tEVTl8H6'
   }
 };
 

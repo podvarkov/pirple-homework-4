@@ -4,7 +4,8 @@ const uuid = require("./src/lib/helpers").uuid;
 const product = (i) =>({
   id: uuid(),
   name: `Pizza #${i}`,
-  price: Math.floor(Math.random()*30) + "$"
+  price: Math.floor(Math.random()*30),
+  currency: 'USD'
 })
 
 for (let i=1; i<11; i++) {

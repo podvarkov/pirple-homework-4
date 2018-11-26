@@ -34,6 +34,12 @@ class ValidationError extends Response {
   }
 }
 
+class PaymentError extends Response {
+  constructor(payload) {
+    super(400, {message: "Payment error", ...payload});
+  }
+}
+
 class OkResponse extends Response {
   constructor(payload = {}) {
     super(200, payload);
@@ -46,5 +52,6 @@ module.exports = {
   InternalError,
   NotAuthorizedError,
   NotFoundError,
+  PaymentError,
   Response
 }
