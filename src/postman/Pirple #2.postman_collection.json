@@ -1,0 +1,940 @@
+{
+	"info": {
+		"_postman_id": "27452d2c-5b92-4821-9df1-44f1c8bb6867",
+		"name": "Pirple #2",
+		"description": "To make requests user should be authorized\nand send token in header\n\neg:\nAuthorization: Bearer + user token",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Users",
+			"item": [
+				{
+					"name": "Create user",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\"name\":\"Hahn, Emmie IV\",\"address\":\"30992 Bogan Falls\",\"username\":\"Hahn\",\"email\":\"Otho24@hotmail.com\",\"password\":\"Emmie\"} "
+						},
+						"url": {
+							"raw": "http://localhost:{{PORT}}/users",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "{{PORT}}",
+							"path": [
+								"users"
+							]
+						},
+						"description": "required field \naddress, email, name, username, password"
+					},
+					"response": [
+						{
+							"name": "Create user",
+							"originalRequest": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json",
+										"disabled": false
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\"name\":\"Hahn, Emmie IV\",\"address\":\"30992 Bogan Falls\",\"username\":\"Hahn\",\"email\":\"Otho24@hotmail.com\",\"password\":\"Emmie\"} "
+								},
+								"url": {
+									"raw": "http://localhost:{{PORT}}/users",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "{{PORT}}",
+									"path": [
+										"users"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Connection",
+									"value": "keep-alive",
+									"name": "Connection",
+									"description": "Options that are desired for the connection"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json",
+									"name": "Content-Type",
+									"description": "The mime type of this content"
+								},
+								{
+									"key": "Date",
+									"value": "Mon, 26 Nov 2018 05:37:01 GMT",
+									"name": "Date",
+									"description": "The date and time that the message was sent"
+								},
+								{
+									"key": "Transfer-Encoding",
+									"value": "chunked",
+									"name": "Transfer-Encoding",
+									"description": "The form of encoding used to safely transfer the entity to the user. Currently defined methods are: chunked, compress, deflate, gzip, identity."
+								}
+							],
+							"cookie": [],
+							"body": "{\"name\":\"Hahn, Emmie IV\",\"address\":\"30992 Bogan Falls\",\"username\":\"Hahn\",\"email\":\"Otho24@hotmail.com\",\"id\":\"0ae85e2e-02ac-488d-b546-d02e5120dd47\"}"
+						}
+					]
+				},
+				{
+					"name": "Update user",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "83ffa6cb-1cd8-4b4f-b3f2-fc0d07d900d3",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "",
+								"value": ""
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\": \"Max Podvarkov Updated\",\n    \"address\": \"BIY 80-91\",\n    \"email\": \"i.snova2.bebebe@gmail.com\",\n    \"username\": \"MaxUptaded\",\n    \"password\": \"123\"\n}"
+						},
+						"url": {
+							"raw": "http://localhost:{{PORT}}/users",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "{{PORT}}",
+							"path": [
+								"users"
+							]
+						},
+						"description": "updates user's specified fields"
+					},
+					"response": [
+						{
+							"name": "Update user",
+							"originalRequest": {
+								"method": "PUT",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json",
+										"disabled": false
+									},
+									{
+										"key": "",
+										"value": "",
+										"disabled": false
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"name\": \"New Hanh\",\n    \"address\": \"BIY 80-91\",\n    \"email\": \"i.snova2.bebebe@gmail.com\"\n}"
+								},
+								"url": {
+									"raw": "http://localhost:{{PORT}}/users",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "{{PORT}}",
+									"path": [
+										"users"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Connection",
+									"value": "keep-alive",
+									"name": "Connection",
+									"description": "Options that are desired for the connection"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json",
+									"name": "Content-Type",
+									"description": "The mime type of this content"
+								},
+								{
+									"key": "Date",
+									"value": "Mon, 26 Nov 2018 05:42:01 GMT",
+									"name": "Date",
+									"description": "The date and time that the message was sent"
+								},
+								{
+									"key": "Transfer-Encoding",
+									"value": "chunked",
+									"name": "Transfer-Encoding",
+									"description": "The form of encoding used to safely transfer the entity to the user. Currently defined methods are: chunked, compress, deflate, gzip, identity."
+								}
+							],
+							"cookie": [],
+							"body": "{\"name\":\"New Hanh\",\"address\":\"BIY 80-91\",\"email\":\"i.snova2.bebebe@gmail.com\"}"
+						}
+					]
+				},
+				{
+					"name": "Get user info",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "057c3e09-df38-4b51-a5a4-9acc0112214d",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "http://localhost:{{PORT}}/users",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "{{PORT}}",
+							"path": [
+								"users"
+							]
+						},
+						"description": "Return user's info"
+					},
+					"response": [
+						{
+							"name": "Get user info",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": ""
+								},
+								"url": {
+									"raw": "http://localhost:{{PORT}}/users",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "{{PORT}}",
+									"path": [
+										"users"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Connection",
+									"value": "keep-alive",
+									"name": "Connection",
+									"description": "Options that are desired for the connection"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json",
+									"name": "Content-Type",
+									"description": "The mime type of this content"
+								},
+								{
+									"key": "Date",
+									"value": "Mon, 26 Nov 2018 05:41:08 GMT",
+									"name": "Date",
+									"description": "The date and time that the message was sent"
+								},
+								{
+									"key": "Transfer-Encoding",
+									"value": "chunked",
+									"name": "Transfer-Encoding",
+									"description": "The form of encoding used to safely transfer the entity to the user. Currently defined methods are: chunked, compress, deflate, gzip, identity."
+								}
+							],
+							"cookie": [],
+							"body": "{\"name\":\"Hahn, Emmie IV\",\"address\":\"30992 Bogan Falls\",\"username\":\"Hahn\",\"email\":\"Otho24@hotmail.com\",\"id\":\"0ae85e2e-02ac-488d-b546-d02e5120dd47\",\"sessions\":[\"057c3e09-df38-4b51-a5a4-9acc0112214d\"]}"
+						}
+					]
+				},
+				{
+					"name": "Delete user",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "4078a246-fecb-4ac5-8f49-4c7f7a5f2eba",
+								"type": "text/javascript",
+								"exec": [
+									""
+								]
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "83ffa6cb-1cd8-4b4f-b3f2-fc0d07d900d3",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [],
+						"body": {},
+						"url": {
+							"raw": "http://localhost:{{PORT}}/users",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "{{PORT}}",
+							"path": [
+								"users"
+							]
+						},
+						"description": "Delete user"
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Session",
+			"item": [
+				{
+					"name": "Create session",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"username\":\"a\",\n\t\"password\":\"a\"\n} "
+						},
+						"url": {
+							"raw": "http://localhost:{{PORT}}/session",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "{{PORT}}",
+							"path": [
+								"session"
+							]
+						},
+						"description": "Create auth token\nrequired fields username, password"
+					},
+					"response": [
+						{
+							"name": "Create session",
+							"originalRequest": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json",
+										"disabled": false
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n\t\"username\":\"Hahn\",\n\t\"password\":\"Emmie\"\n} "
+								},
+								"url": {
+									"raw": "http://localhost:{{PORT}}/session",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "{{PORT}}",
+									"path": [
+										"session"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Connection",
+									"value": "keep-alive",
+									"name": "Connection",
+									"description": "Options that are desired for the connection"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json",
+									"name": "Content-Type",
+									"description": "The mime type of this content"
+								},
+								{
+									"key": "Date",
+									"value": "Mon, 26 Nov 2018 05:38:07 GMT",
+									"name": "Date",
+									"description": "The date and time that the message was sent"
+								},
+								{
+									"key": "Transfer-Encoding",
+									"value": "chunked",
+									"name": "Transfer-Encoding",
+									"description": "The form of encoding used to safely transfer the entity to the user. Currently defined methods are: chunked, compress, deflate, gzip, identity."
+								}
+							],
+							"cookie": [],
+							"body": "{\"token\":\"057c3e09-df38-4b51-a5a4-9acc0112214d\"}"
+						}
+					]
+				},
+				{
+					"name": "Delete session",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "08074897-92a6-43ab-a481-2247c7a0c681",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "http://localhost:{{PORT}}/session",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "{{PORT}}",
+							"path": [
+								"session"
+							]
+						},
+						"description": "delete user session"
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Products",
+			"item": [
+				{
+					"name": "Get all products",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "057c3e09-df38-4b51-a5a4-9acc0112214d",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "http://localhost:{{PORT}}/products",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "{{PORT}}",
+							"path": [
+								"products"
+							]
+						},
+						"description": "return all products"
+					},
+					"response": [
+						{
+							"name": "Get all products",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": ""
+								},
+								"url": {
+									"raw": "http://localhost:{{PORT}}/products",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "{{PORT}}",
+									"path": [
+										"products"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Connection",
+									"value": "keep-alive",
+									"name": "Connection",
+									"description": "Options that are desired for the connection"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json",
+									"name": "Content-Type",
+									"description": "The mime type of this content"
+								},
+								{
+									"key": "Date",
+									"value": "Mon, 26 Nov 2018 05:38:35 GMT",
+									"name": "Date",
+									"description": "The date and time that the message was sent"
+								},
+								{
+									"key": "Transfer-Encoding",
+									"value": "chunked",
+									"name": "Transfer-Encoding",
+									"description": "The form of encoding used to safely transfer the entity to the user. Currently defined methods are: chunked, compress, deflate, gzip, identity."
+								}
+							],
+							"cookie": [],
+							"body": "{\"products\":[{\"id\":\"00c5078e-8c24-493e-8e87-f3ab07bbdeea\",\"name\":\"Pizza #1\",\"price\":22,\"currency\":\"USD\"},{\"id\":\"25b8daa0-5351-44cc-a9b6-e5f615f9ae67\",\"name\":\"Pizza #6\",\"price\":28,\"currency\":\"USD\"},{\"id\":\"3305c877-7c51-41ab-9db5-b58a0081a3da\",\"name\":\"Pizza #5\",\"price\":19,\"currency\":\"USD\"},{\"id\":\"5eccc7d9-ead1-48af-aa2f-2cc4c85ba542\",\"name\":\"Pizza #2\",\"price\":20,\"currency\":\"USD\"},{\"id\":\"9b8780ee-555a-49ae-9df4-135a265f95e8\",\"name\":\"Pizza #9\",\"price\":17,\"currency\":\"USD\"},{\"id\":\"cd0aeb55-4cb9-40e8-b33f-0f157bbc2bfd\",\"name\":\"Pizza #8\",\"price\":18,\"currency\":\"USD\"},{\"id\":\"d3dd6bc5-47d8-4dcd-be0d-aebcb66598a8\",\"name\":\"Pizza #7\",\"price\":3,\"currency\":\"USD\"},{\"id\":\"d6d3bf7e-46e7-430b-b555-8530f5d4344d\",\"name\":\"Pizza #3\",\"price\":1,\"currency\":\"USD\"},{\"id\":\"db8fc956-654e-4465-98d7-f5745202aead\",\"name\":\"Pizza #10\",\"price\":20,\"currency\":\"USD\"},{\"id\":\"decd7eae-809d-4707-b287-c237a010706f\",\"name\":\"Pizza #4\",\"price\":20,\"currency\":\"USD\"}]}"
+						}
+					]
+				}
+			]
+		},
+		{
+			"name": "Cart",
+			"item": [
+				{
+					"name": "Get cart",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "057c3e09-df38-4b51-a5a4-9acc0112214d",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "http://localhost:{{PORT}}/cart",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "{{PORT}}",
+							"path": [
+								"cart"
+							]
+						},
+						"description": "return user's cart"
+					},
+					"response": [
+						{
+							"name": "Get cart",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": ""
+								},
+								"url": {
+									"raw": "http://localhost:{{PORT}}/cart",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "{{PORT}}",
+									"path": [
+										"cart"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Connection",
+									"value": "keep-alive",
+									"name": "Connection",
+									"description": "Options that are desired for the connection"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json",
+									"name": "Content-Type",
+									"description": "The mime type of this content"
+								},
+								{
+									"key": "Date",
+									"value": "Mon, 26 Nov 2018 05:40:08 GMT",
+									"name": "Date",
+									"description": "The date and time that the message was sent"
+								},
+								{
+									"key": "Transfer-Encoding",
+									"value": "chunked",
+									"name": "Transfer-Encoding",
+									"description": "The form of encoding used to safely transfer the entity to the user. Currently defined methods are: chunked, compress, deflate, gzip, identity."
+								}
+							],
+							"cookie": [],
+							"body": "{\"cart\":[{\"id\":\"00c5078e-8c24-493e-8e87-f3ab07bbdeea\",\"name\":\"Pizza #1\",\"price\":22,\"currency\":\"USD\"}]}"
+						}
+					]
+				},
+				{
+					"name": "Add to cart",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "057c3e09-df38-4b51-a5a4-9acc0112214d",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {},
+						"url": {
+							"raw": "http://localhost:{{PORT}}/cart?productId=9b8780ee-555a-49ae-9df4-135a265f95e8",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "{{PORT}}",
+							"path": [
+								"cart"
+							],
+							"query": [
+								{
+									"key": "productId",
+									"value": "9b8780ee-555a-49ae-9df4-135a265f95e8"
+								}
+							]
+						},
+						"description": "Add product to user's cart\n/cart?productId=productId"
+					},
+					"response": [
+						{
+							"name": "Add to cart",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {},
+								"url": {
+									"raw": "http://localhost:{{PORT}}/cart?productId=00c5078e-8c24-493e-8e87-f3ab07bbdeea",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "{{PORT}}",
+									"path": [
+										"cart"
+									],
+									"query": [
+										{
+											"key": "productId",
+											"value": "00c5078e-8c24-493e-8e87-f3ab07bbdeea"
+										}
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Connection",
+									"value": "keep-alive",
+									"name": "Connection",
+									"description": "Options that are desired for the connection"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json",
+									"name": "Content-Type",
+									"description": "The mime type of this content"
+								},
+								{
+									"key": "Date",
+									"value": "Mon, 26 Nov 2018 05:39:40 GMT",
+									"name": "Date",
+									"description": "The date and time that the message was sent"
+								},
+								{
+									"key": "Transfer-Encoding",
+									"value": "chunked",
+									"name": "Transfer-Encoding",
+									"description": "The form of encoding used to safely transfer the entity to the user. Currently defined methods are: chunked, compress, deflate, gzip, identity."
+								}
+							],
+							"cookie": [],
+							"body": "{\"id\":\"00c5078e-8c24-493e-8e87-f3ab07bbdeea\"}"
+						}
+					]
+				},
+				{
+					"name": "Remove from cart",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "057c3e09-df38-4b51-a5a4-9acc0112214d",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [],
+						"body": {},
+						"url": {
+							"raw": "http://localhost:{{PORT}}/cart?productId=00c5078e-8c24-493e-8e87-f3ab07bbdeea",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "{{PORT}}",
+							"path": [
+								"cart"
+							],
+							"query": [
+								{
+									"key": "productId",
+									"value": "00c5078e-8c24-493e-8e87-f3ab07bbdeea"
+								}
+							]
+						},
+						"description": "Remove product from user's cart\n/cart?productId=productId"
+					},
+					"response": [
+						{
+							"name": "Remove from cart",
+							"originalRequest": {
+								"method": "DELETE",
+								"header": [],
+								"body": {},
+								"url": {
+									"raw": "http://localhost:{{PORT}}/cart?productId=00c5078e-8c24-493e-8e87-f3ab07bbdeea",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "{{PORT}}",
+									"path": [
+										"cart"
+									],
+									"query": [
+										{
+											"key": "productId",
+											"value": "00c5078e-8c24-493e-8e87-f3ab07bbdeea"
+										}
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Connection",
+									"value": "keep-alive",
+									"name": "Connection",
+									"description": "Options that are desired for the connection"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json",
+									"name": "Content-Type",
+									"description": "The mime type of this content"
+								},
+								{
+									"key": "Date",
+									"value": "Mon, 26 Nov 2018 05:40:48 GMT",
+									"name": "Date",
+									"description": "The date and time that the message was sent"
+								},
+								{
+									"key": "Transfer-Encoding",
+									"value": "chunked",
+									"name": "Transfer-Encoding",
+									"description": "The form of encoding used to safely transfer the entity to the user. Currently defined methods are: chunked, compress, deflate, gzip, identity."
+								}
+							],
+							"cookie": [],
+							"body": "{\"id\":\"00c5078e-8c24-493e-8e87-f3ab07bbdeea\"}"
+						}
+					]
+				}
+			]
+		},
+		{
+			"name": "Orders",
+			"item": [
+				{
+					"name": "Get orders",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "057c3e09-df38-4b51-a5a4-9acc0112214d",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "http://localhost:{{PORT}}/orders",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "{{PORT}}",
+							"path": [
+								"orders"
+							]
+						},
+						"description": "Get user's orders"
+					},
+					"response": []
+				},
+				{
+					"name": "Create order",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "057c3e09-df38-4b51-a5a4-9acc0112214d",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "http://localhost:{{PORT}}/orders",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "{{PORT}}",
+							"path": [
+								"orders"
+							]
+						},
+						"description": "Create orders with test stripe payment token"
+					},
+					"response": []
+				}
+			]
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"id": "0a4aba93-6114-4869-b53b-762e761f1615",
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"id": "7da594bc-eea1-4292-b5bd-4b8c577dba16",
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	]
+}
