@@ -1,8 +1,8 @@
-const users = require('./users')
+const users = require('./user')
 const session = require('./session')
 const products = require('./product')
 const cart = require('./cart')
-const orders = require('./orders')
+const orders = require('./order')
 const {NotFoundError} = require('../lib/response')
 
 const notFound = (data, cb) => {

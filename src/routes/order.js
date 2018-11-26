@@ -7,6 +7,8 @@ const f = require('../lib/functions')
 const {createCharge} = require('../lib/stripe')
 const {parseToken} = require('../lib/helpers')
 const {NotFoundError, OkResponse, BadRequestError} = require('../lib/response')
+const {sendEmail} = require('../lib/mailgun')
+const log = require('util').debuglog('orders')
 
 // orders route container
 const orders = {}
@@ -63,6 +65,17 @@ orders.post = (req, cb) => {
     .then(() => cb(new OkResponse(order)))
     .then(() => db.cart.clearCart(id))
     .catch(e => cb(e))
+    .then(() => db.users.getUser(id))
+    /**
+     * THIS BLOCK WILL ALWAYS THROW AN EXCEPTION
+     * TILL USING MAILGUN SANDBOX
+     */
+    .then(({email}) => sendEmail({
+      to: email, //or change to your mailgun whitelisted user
+      subject: 'Order',
+      text: 'Your order was successfully paid'
+    }))
+    .catch(e => log(e))
 }
 
 // routing function for users routes

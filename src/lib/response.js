@@ -47,6 +47,12 @@ class PaymentError extends Response {
   }
 }
 
+class EmailError extends Response {
+  constructor(message) {
+    super(400, {message})
+  }
+}
+
 class OkResponse extends Response {
   constructor(payload = {}) {
     super(200, payload)
@@ -61,5 +67,6 @@ module.exports = {
   NotFoundError,
   PaymentError,
   BadRequestError,
+  EmailError,
   Response
 }
