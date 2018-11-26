@@ -33,5 +33,14 @@ This is an open-ended assignment. You may take any direction you'd like to go wi
 
 **P.S. Don't forget to document how a client should interact with the API you create!**
 
+#### Docs
+* Before start server run ./create-dirs.sh
+this will create all needed directories and generate 10 random pizzas for testing.
+
+* If you want to use eslint, run `npm install`
+
+* [Api documentation url][api-url]
+
+
 
 [fb]:(https://www.facebook.com/groups/1282717078530848/)
