@@ -1,6 +1,6 @@
-const isString = (x) => typeof x === "string" && !!x.trim()
+const isString = (x) => typeof x === 'string' && !!x.trim()
 const notNull = (x) => x !== null && x !== undefined
-const notBlank = (x) => typeof x === "string" ? isString(x) : notNull(x)
+const notBlank = (x) => typeof x === 'string' ? isString(x) : notNull(x)
 const lengthEqual = (length) => (x) => x.length === length
 const lengthGte = (length) => (x) => x.length > length
 

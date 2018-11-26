@@ -1,0 +1,13 @@
+{
+  "name": "homework-assigment2",
+  "version": "1.0.0",
+  "main": "index.js",
+  "repository": "https://github.com/podvarkov/pirple-homework-2.git",
+  "author": "Maksim Podvarkov <i.snova.bebebe@gmail.com>",
+  "license": "MIT",
+  "private": false,
+  "dependencies": {},
+  "devDependencies": {
+    "eslint": "^5.9.0"
+  }
+}

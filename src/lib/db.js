@@ -7,25 +7,21 @@ const path = require('path')
 const util = require('util')
 const {uuid, hash} = require('./helpers')
 const f = require('./functions')
-const promisify = util.promisify
+const {promisify} = util
 const _read = promisify(fs.readFile)
 const _create = promisify(fs.writeFile)
 const _remove = promisify(fs.unlink)
 const _list = promisify(fs.readdir)
-const BASE_DIR = path.join(__dirname, "../../.data")
+const BASE_DIR = path.join(__dirname, '../../.data')
 
-const getFullPath = (dir, name) => path.join(BASE_DIR, dir, name) + '.json';
-const parse = JSON.parse;
-const stringify = JSON.stringify;
-const {NotAuthorizedError, InternalError, NotFoundError} = require('../lib/response')
+const getFullPath = (dir, name) => `${path.join(BASE_DIR, dir, name)  }.json`
+const {NotAuthorizedError, InternalError, BadRequestError} = require('../lib/response')
 
 //creates file with specified name in specified dir
-const create = (dir, name, data) => {
-  return _create(getFullPath(dir, name), stringify(data), "utf-8")
-}
+const create = (dir, name, data) => _create(getFullPath(dir, name), JSON.stringify(data), 'utf-8')
 
 //reads file with specified name in specified dir, return JSON parsed object
-const read = (dir, name) => _read(getFullPath(dir, name), "utf-8").then(parse)
+const read = (dir, name) => _read(getFullPath(dir, name), 'utf-8').then(JSON.parse)
 
 //removes file with specified name in specified dir
 const remove = (dir, name) => _remove(getFullPath(dir, name))
@@ -37,9 +33,7 @@ const update = async (dir, name, data) => {
 }
 
 //returns all files in specified dir
-const list = (dir) => {
-  return _list(path.join(BASE_DIR, dir))
-}
+const list = (dir) => _list(path.join(BASE_DIR, dir))
 
 //returns all files content in specified dir
 const getAll = async (dir) => {
@@ -64,19 +58,15 @@ const createUser = (user) => {
 
 const getUser = (id) => read('users', id)
 
-const updateUser = (user) => {
-  return update('users', user.id, user)
-    .catch(e => {
-      throw new InternalError('cant update user', e)
-    })
-}
+const updateUser = (user) => update('users', user.id, user)
+  .catch(e => {
+    throw new InternalError('cant update user', e)
+  })
 
-const removeUser = (id) => {
-  return remove('users', id)
-    .catch(e => {
-      throw new InternalError('cant remove user', e)
-    })
-}
+const removeUser = (id) => remove('users', id)
+  .catch(e => {
+    throw new InternalError('cant remove user', e)
+  })
 
 const getUsers = () => getAll('users')
 
@@ -95,7 +85,7 @@ const removeSession = id => remove('sessions', id).catch(e => {
 
 const readToken = (token) => {
   if (!token) return Promise.reject(new NotAuthorizedError())
-  return read('sessions', token).catch(e => {
+  return read('sessions', token).catch(() => {
     throw new NotAuthorizedError()
   })
 }
@@ -106,12 +96,10 @@ const getProducts = () => getAll('products')
 const getProduct = (id) => read('products', id)
 
 //cart helpers
-const getCart = (userId) => {
-  return read('carts', userId).catch(e => [])
-}
+const getCart = (userId) => read('carts', userId).catch(() => [])
 
 const addToCart = async (userId, productId) => {
-  if (!productId) throw new NotFoundError('Product not found')
+  if (!productId) throw new BadRequestError('Product not found')
   const product = await getProduct(productId)
   const cart = await getCart(userId)
   return create('carts', userId, [...cart, product])
@@ -121,12 +109,28 @@ const addToCart = async (userId, productId) => {
 }
 
 const removeFromCart = async (userId, productId) => {
-  if (!productId) throw new NotFoundError('Product not found')
+  if (!productId) throw new BadRequestError('Product not found')
   let cart = await getCart(userId)
   cart = f.remove(f.propEq('id', productId), cart)
   return create('carts', userId, cart)
     .catch(e => {
       throw new InternalError('cant update from cart', e)
+    })
+}
+
+const clearCart = (userId) => create('carts', userId, [])
+  .catch(e => {
+    throw new InternalError('cant clear cart', e)
+  })
+
+//orders helpers
+const getOrders = (userId) => read('orders', userId).catch(() => [])
+
+const createOrder = async (userId, order) => {
+  const orders = await getOrders(userId)
+  return create('orders', userId, [...orders, order])
+    .catch(e => {
+      throw new InternalError('cant save order', e)
     })
 }
 
@@ -150,6 +154,11 @@ module.exports = {
   cart: {
     getCart,
     addToCart,
-    removeFromCart
+    removeFromCart,
+    clearCart
+  },
+  orders: {
+    createOrder,
+    getOrders
   }
 }

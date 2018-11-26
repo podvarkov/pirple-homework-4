@@ -11,7 +11,7 @@ const log = require('util').debuglog('users')
 
 
 // users route container
-let users = {};
+const users = {}
 
 //creates users
 users.post = (req, cb) => {
@@ -34,7 +34,7 @@ users.post = (req, cb) => {
         users = f.filter(f.propEq('username', req.body.username), users)
 
         if (users.length) {
-          cb(new ValidationError("username must be unique"))
+          cb(new ValidationError('username must be unique'))
         } else {
           return db.users.createUser(req.body)
             .then((user) => cb(new OkResponse(f.dissoc('password', user))))

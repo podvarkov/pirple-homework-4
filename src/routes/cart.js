@@ -4,13 +4,13 @@
 
 const db = require('../lib/db')
 const f = require('../lib/functions')
-const {parseToken} = require("../lib/helpers")
+const {parseToken} = require('../lib/helpers')
 const {NotFoundError, OkResponse} = require('../lib/response')
 const log = require('util').debuglog('cart')
 
 
 // cart route container
-let cart = {};
+const cart = {}
 
 //get user's cart
 cart.get = (req, cb) => {
@@ -33,7 +33,7 @@ cart.post = (req, cb) => {
     .then(({userId}) => db.cart.addToCart(userId, productId))
     .then(() => cb(new OkResponse({id: productId})))
     .catch(e => {
-      console.log(e)
+      log(e)
       cb(e)
     })
 }

@@ -6,13 +6,13 @@ const db = require('../lib/db')
 const f = require('../lib/functions')
 const {hash} = require('../lib/helpers')
 const validator = require('../lib/validator')
-const {parseToken} = require("../lib/helpers")
+const {parseToken} = require('../lib/helpers')
 const log = require('util').debuglog('session')
 const {NotFoundError, ValidationError, OkResponse} = require('../lib/response')
 
 
 // session route container
-let session = {};
+const session = {}
 
 //create auth token
 session.post = (req, cb) => {
@@ -31,13 +31,13 @@ session.post = (req, cb) => {
         //hash password to check
         const requestPassword = hash(req.body.password)
         users = users.filter(user => {
-          return user.username === req.body.username && requestPassword === user.password;
+          return user.username === req.body.username && requestPassword === user.password
         })
         if (users.length) {
           db.session.createSession(f.first(users))
             .then(token => cb(new OkResponse({token})))
         } else {
-          cb(new ValidationError("User must exist"))
+          cb(new ValidationError('User must exist'))
         }
       })
       .catch((e) => {

@@ -2,9 +2,9 @@
  * Stripe API integration
  * */
 
-const qs = require("querystring");
-const assoc = require("./functions").assoc;
-const stripeKey = require('./config').stripeKey
+const qs = require('querystring')
+const {assoc} = require('./functions')
+const {stripeKey} = require('./config')
 const {PaymentError} = require('./response')
 const request = require('./request')
 
@@ -26,7 +26,7 @@ const defaultOptions = {
  * @param {string} charge.source - card token
  */
 const createCharge = charge => {
-  return request(assoc('path', '/v1/charges', defaultOptions), charge)
+  return request(assoc('path', '/v1/charges', defaultOptions), qs.stringify(charge))
     .catch(e => {
       throw new PaymentError(e.message)
     })

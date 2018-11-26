@@ -11,8 +11,8 @@ const environments = {
     hashingSecret : 'thisIsASecret',
     stripeKey: 'sk_test_lo1ZlgnxuMnxKs89tEVTl8H6'
   }
-};
+}
 
-const env = environments[process.env.NODE_ENV] || environments.staging;
+const env = environments[process.env.NODE_ENV] || environments.staging
 
-module.exports = env;
+module.exports = env

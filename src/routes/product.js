@@ -3,14 +3,12 @@
  */
 
 const db = require('../lib/db')
-const f = require('../lib/functions')
-const {parseToken} = require("../lib/helpers")
+const {parseToken} = require('../lib/helpers')
 const {NotFoundError,OkResponse} = require('../lib/response')
-const log = require('util').debuglog('products')
 
 
 // users route container
-let products = {};
+const products = {}
 
 //get all products
 products.get = (req, cb) => {
