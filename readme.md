@@ -6,7 +6,7 @@ This is the second of several homework assignments you'll receive in this course
 
 * Create a public github repo for this assignment. 
 
-* Create a new post in the [Facebook Group][fb]  and note "Homework Assignment #2" at the top.
+* Create a new post in the [Facebook Group](https://www.facebook.com/groups/1282717078530848/)  and note "Homework Assignment #2" at the top.
 
 * In that thread, discuss what you have built, and include the link to your Github repo. 
 
@@ -39,8 +39,4 @@ this will create all needed directories and generate 10 random pizzas for testin
 
 * If you want to use eslint, run `npm install`
 
-* [Api documentation url][api-url]
-
-
-
-[fb]:(https://www.facebook.com/groups/1282717078530848/)
+* [Api documentation url](https://documenter.getpostman.com/view/2918313/Rzfars7T)
