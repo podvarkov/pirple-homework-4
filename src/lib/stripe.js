@@ -26,7 +26,7 @@ const defaultOptions = {
  * @param {string} charge.source - card token
  */
 const createCharge = charge => {
-  return request(assoc('path', '/v1/charges', defaultOptions), charge)
+  return request(assoc('path', '/v1/charges', defaultOptions), qs.stringify(charge))
     .catch(e => {
       throw new PaymentError(e.message)
     })

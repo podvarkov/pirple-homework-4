@@ -17,7 +17,7 @@ const BASE_DIR = path.join(__dirname, "../../.data")
 const getFullPath = (dir, name) => path.join(BASE_DIR, dir, name) + '.json';
 const parse = JSON.parse;
 const stringify = JSON.stringify;
-const {NotAuthorizedError, InternalError, NotFoundError} = require('../lib/response')
+const {NotAuthorizedError, InternalError, BadRequestError} = require('../lib/response')
 
 //creates file with specified name in specified dir
 const create = (dir, name, data) => {
@@ -111,7 +111,7 @@ const getCart = (userId) => {
 }
 
 const addToCart = async (userId, productId) => {
-  if (!productId) throw new NotFoundError('Product not found')
+  if (!productId) throw new BadRequestError('Product not found')
   const product = await getProduct(productId)
   const cart = await getCart(userId)
   return create('carts', userId, [...cart, product])
@@ -121,12 +121,32 @@ const addToCart = async (userId, productId) => {
 }
 
 const removeFromCart = async (userId, productId) => {
-  if (!productId) throw new NotFoundError('Product not found')
+  if (!productId) throw new BadRequestError('Product not found')
   let cart = await getCart(userId)
   cart = f.remove(f.propEq('id', productId), cart)
   return create('carts', userId, cart)
     .catch(e => {
       throw new InternalError('cant update from cart', e)
+    })
+}
+
+const clearCart = (userId) => {
+  return create('carts', userId, [])
+    .catch(e => {
+      throw new InternalError('cant clear cart', e)
+    })
+}
+
+//orders helpers
+const getOrders = (userId) => {
+  return read('orders', userId).catch(e => [])
+}
+
+const createOrder = async (userId, order) => {
+  const orders = await getOrders(userId)
+  return create('orders', userId, [...orders, order])
+    .catch(e => {
+      throw new InternalError('cant save order', e)
     })
 }
 
@@ -150,6 +170,11 @@ module.exports = {
   cart: {
     getCart,
     addToCart,
-    removeFromCart
+    removeFromCart,
+    clearCart
+  },
+  orders: {
+    createOrder,
+    getOrders
   }
 }

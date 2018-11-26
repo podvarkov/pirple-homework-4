@@ -11,9 +11,16 @@ class Response {
 
 class NotAuthorizedError extends Response {
   constructor() {
-    super(403, {message: 'Not authorized'});
+    super(401, {message: 'Not authorized'});
   }
 }
+
+class BadRequestError extends Response {
+  constructor(message = "Bad request") {
+    super(400, {message});
+  }
+}
+
 
 class InternalError extends Response {
   constructor(message = "Server Error", e) {
@@ -30,7 +37,7 @@ class NotFoundError extends Response{
 
 class ValidationError extends Response {
   constructor(message = "Validation error") {
-    super(400, {message});
+    super(422, {message});
   }
 }
 
@@ -53,5 +60,6 @@ module.exports = {
   NotAuthorizedError,
   NotFoundError,
   PaymentError,
+  BadRequestError,
   Response
 }

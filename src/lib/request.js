@@ -14,7 +14,7 @@ const request = (options, data) => {
         if (res.statusCode === 200) {
           resolve({status, body})
         } else {
-          reject({status, message: body.error})
+          reject({status, body})
         }
       });
     });
