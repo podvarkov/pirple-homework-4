@@ -52,7 +52,7 @@ const wrapPage = async (name, vars={}) => {
 }
 
 const getAssets = async _path => {
-  return await read(path.join(__dirname,'..', _path))
+  return await read(path.join(__dirname,'../..', _path))
 }
 
 module.exports = {
@@ -64,5 +64,3 @@ module.exports = {
   wrapPage,
   getAssets
 }
-
-//TODO parse template with string interpolation
