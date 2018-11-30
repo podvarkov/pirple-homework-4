@@ -28,13 +28,17 @@ const serverHandler = (req, res) => {
       body: safeParse(buffer)
     }
 
-    const chosenRoute = routes[path] || routes.notFound
+    let chosenRoute = routes[path] || routes.notFound
+
+    if (path.split('/')[0] === 'public') {
+      chosenRoute = routes['public']
+    }
 
     chosenRoute(req, (response) => {
       log(req)
-      res.setHeader('Content-Type', 'application/json')
+      res.setHeader('Content-Type', response.type || 'application/json')
       res.writeHeader(response.status)
-      res.end(response.json())
+      res.end(response.payload)
     })
   })
 }
