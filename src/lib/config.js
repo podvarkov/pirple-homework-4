@@ -10,6 +10,7 @@ const environments = {
       from: 'example@example.com'
     },
     templates: `${__dirname}/../templates`,
+    company: 'Some weird Inc'
   },
   production: {
     port: 5000,
@@ -22,6 +23,7 @@ const environments = {
       from: 'example@example.com'
     },
     templates: `${__dirname}/../templates`,
+    company: 'Some weird Inc'
   }
 }
 

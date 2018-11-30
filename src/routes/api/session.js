@@ -2,13 +2,13 @@
  * tokens handlers
  */
 
-const db = require('../lib/db')
-const f = require('../lib/functions')
-const {hash} = require('../lib/helpers')
-const validator = require('../lib/validator')
-const {parseToken} = require('../lib/helpers')
+const db = require('../../lib/db')
+const f = require('../../lib/functions')
+const {hash} = require('../../lib/helpers')
+const validator = require('../../lib/validator')
+const {parseToken} = require('../../lib/helpers')
 const log = require('util').debuglog('session')
-const {NotFoundError, ValidationError, OkResponse} = require('../lib/response')
+const {NotFoundError, ValidationError, OkResponse} = require('../../lib/response')
 
 
 // session route container

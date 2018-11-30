@@ -2,9 +2,9 @@
  * products handlers
  */
 
-const db = require('../lib/db')
-const {parseToken} = require('../lib/helpers')
-const {NotFoundError,OkResponse} = require('../lib/response')
+const db = require('../../lib/db')
+const {parseToken} = require('../../lib/helpers')
+const {NotFoundError,OkResponse} = require('../../lib/response')
 
 
 // users route container

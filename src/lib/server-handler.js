@@ -34,9 +34,13 @@ const serverHandler = (req, res) => {
       chosenRoute = routes['public']
     }
 
+    if (path.split('/')[0] === 'api') {
+      chosenRoute = routes['api']
+    }
+
     chosenRoute(req, (response) => {
       log(req)
-      res.setHeader('Content-Type', response.type || 'application/json')
+      res.setHeader('Content-Type', response.type || 'text/plain')
       res.writeHeader(response.status)
       res.end(response.payload)
     })

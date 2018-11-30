@@ -47,6 +47,10 @@ const parseTemplate = async (name, variables = {}) => {
   return interpolate(page, variables)
 }
 
+const wrapPage = async (name, vars={}) => {
+  return `${await parseTemplate('_header', vars)}${await parseTemplate(name, vars)}${await parseTemplate('_footer', vars)}`
+}
+
 const getAssets = async _path => {
   return await read(path.join(__dirname,'..', _path))
 }
@@ -57,6 +61,7 @@ module.exports = {
   hash,
   parseToken,
   parseTemplate,
+  wrapPage,
   getAssets
 }
 

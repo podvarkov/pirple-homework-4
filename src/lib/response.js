@@ -1,11 +1,12 @@
 class Response {
   constructor(status, payload) {
     this.status = status
-    this.payload = payload
+    this.type = 'application/json'
+    this._payload = payload
   }
 
-  json() {
-    return JSON.stringify(this.payload)
+  get payload() {
+    return JSON.stringify(this._payload)
   }
 }
 
@@ -68,7 +69,6 @@ module.exports = {
   PaymentError,
   BadRequestError,
   EmailError,
-  Response
 }
 
 //TODO something with this :)

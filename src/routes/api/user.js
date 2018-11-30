@@ -2,11 +2,11 @@
  * users handlers
  */
 
-const db = require('../lib/db')
-const {hash, parseToken} = require('../lib/helpers')
-const validator = require('../lib/validator')
-const f = require('../lib/functions')
-const {NotFoundError, ValidationError, OkResponse} = require('../lib/response')
+const db = require('../../lib/db')
+const {hash, parseToken} = require('../../lib/helpers')
+const validator = require('../../lib/validator')
+const f = require('../../lib/functions')
+const {NotFoundError, ValidationError, OkResponse} = require('../../lib/response')
 const log = require('util').debuglog('users')
 
 

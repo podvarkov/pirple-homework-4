@@ -2,10 +2,10 @@
  * user cart handlers
  */
 
-const db = require('../lib/db')
-const f = require('../lib/functions')
-const {parseToken} = require('../lib/helpers')
-const {NotFoundError, OkResponse} = require('../lib/response')
+const db = require('../../lib/db')
+const f = require('../../lib/functions')
+const {parseToken} = require('../../lib/helpers')
+const {NotFoundError, OkResponse} = require('../../lib/response')
 const log = require('util').debuglog('cart')
 
 

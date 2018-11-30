@@ -1,30 +1,14 @@
-//api routes
-const users = require('./user')
-const session = require('./session')
-const products = require('./product')
-const cart = require('./cart')
-const orders = require('./order')
-
-//html pages routes
-const main = require('./main')
 const _public = require('./public')
-
-const {NotFoundError} = require('../lib/response')
-
-const notFound = (data, cb) => {
-  cb(new NotFoundError())
-}
-
+const api = require('./api')
+const main = require('./pages/main')
+const createAccount = require('./pages/create-account')
+const createSession = require('./pages/create-session')
 
 module.exports = {
-  notFound,
-  'api/users': users,
-  'api/session':session,
-  'api/products':products,
-  'api/cart':cart,
-  'api/orders':orders,
   '': main,
-  public: _public
+  'account/create': createAccount,
+  'session/create': createSession,
+  public: _public,
+  api,
+  notFound: (_, cb) => cb({status:404})
 }
-
-//TODO static assets, index.html
