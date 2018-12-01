@@ -10,7 +10,11 @@ const environments = {
       from: 'example@example.com'
     },
     templates: `${__dirname}/../templates`,
-    company: 'Some weird Inc'
+    global: {
+      yearCreated: 2018,
+      companyName: 'Some weird company Inc.',
+      appName: 'Pizza App'
+    }
   },
   production: {
     port: 5000,
@@ -23,7 +27,11 @@ const environments = {
       from: 'example@example.com'
     },
     templates: `${__dirname}/../templates`,
-    company: 'Some weird Inc'
+    global: {
+      yearCreated: 2018,
+      companyName: 'Some weird company Inc.',
+      appName: 'Pizza App'
+    }
   }
 }
 

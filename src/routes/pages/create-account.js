@@ -1,8 +1,7 @@
 const {wrapPage} = require('../../lib/helpers')
-const {company} = require('../../lib/config')
 
 const handler = (req, cb) => {
-  wrapPage('accountCreate', {title: 'main', company})
+  wrapPage('accountCreate', {head: {title: 'Create Account'}, body: {class: 'index'}})
     .then((page) => {
       cb({
         status: 200,

@@ -1,14 +1,15 @@
 const {wrapPage} = require('../../lib/helpers')
-const {company} = require('../../lib/config')
 
 const handler = (req, cb) => {
-  wrapPage('index', {title: 'main', company})
+  wrapPage('index', {head: {title: 'main'}, body: {class: 'index'}})
     .then((page) => cb({
       status: 200,
       payload: page,
       type: 'text/html'
     }))
-    .catch(() => cb({status: 500}))
+    .catch(() => {
+      cb({status: 500})
+    })
 }
 
 
