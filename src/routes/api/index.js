@@ -1,7 +1,7 @@
 const path = require('path')
 const users = require('./user')
 const cart = require('./cart')
-const products = require('./cart')
+const products = require('./product')
 const session = require('./session')
 const orders = require('./order')
 

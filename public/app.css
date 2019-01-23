@@ -24,6 +24,7 @@ body, p, h1, h2, h3, h4, h5, h6, div, span, header, footer, img, a, a:hover, a:a
 
 /* Main color palette */
 .header {
+    z-index: 100;
     background-color: #fff;
     border-width: 0 0 1px 0;
     border-style: solid;
@@ -274,20 +275,43 @@ td a, td a:hover, td a:active {
     cursor: pointer;
 }
 
-/* Page specific styles for dashboard */
+.pizza-wrapper {
+    display: inline-block;
+    position: relative;
+    width: 25%;
+    padding: 24px;
+    margin: 16px;
+    box-shadow: 1px 1px 4px 1px rgba(0, 0, 0, 0.1);
+}
 
-#noChecksMessage td {
-    text-align: center;
-    font-style: italic;
+.pizza-wrapper .description .name, .pizza-wrapper .description .price {
+    color: darkgray;
     font-size: 20px;
-    padding: 20px;
+    margin-top: 4px;
 }
 
-#noChecksMessage {
+.pizza-wrapper .add-product, .pizza-wrapper .remove-product {
+    user-select: none;
+    border: none;
+    padding: 8px;
+    color: white;
+    font-size: 12px;
+    border-radius: 3px;
+    background: green;
+    position: absolute;
+    bottom: 10px;
+    right: 10px;
+    cursor: pointer;
+}
+
+.pizza-wrapper .remove-product {
+    background: red;
+}
+
+.invisible {
     display: none;
 }
 
-#createCheckCTA {
-    margin-top: 40px;
-    display: none;
+.payment-error h1 {
+    color: red;
 }

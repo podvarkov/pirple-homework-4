@@ -6,8 +6,6 @@ const db = require('../../lib/db')
 const f = require('../../lib/functions')
 const {parseToken} = require('../../lib/helpers')
 const {NotFoundError, OkResponse} = require('../../lib/response')
-const log = require('util').debuglog('cart')
-
 
 // cart route container
 const cart = {}
@@ -25,7 +23,7 @@ cart.get = (req, cb) => {
 //add product to cart
 cart.post = (req, cb) => {
   //get product id
-  const productId = f.prop('productId', req.queryParams)
+  const productId = f.prop('productId', req.body)
   //parse token
   const token = parseToken(req.headers.authorization)
 
@@ -33,7 +31,6 @@ cart.post = (req, cb) => {
     .then(({userId}) => db.cart.addToCart(userId, productId))
     .then(() => cb(new OkResponse({id: productId})))
     .catch(e => {
-      log(e)
       cb(e)
     })
 }

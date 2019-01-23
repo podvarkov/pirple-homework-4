@@ -1,0 +1,25 @@
+<h1>My cart</h1>
+<div class="cart-products"></div>
+
+<div id="payment-wrapper" class="invisible">
+  <hr/>
+  <div class="formWrapper">
+    <form id="payment-form" action="/api/orders" method="PUT">
+      <div class="inputWrapper">
+        <div class="inputLabel">Credit card</div>
+        <input required type="number" name="card" placeholder="Credit card"/>
+      </div>
+      <div class="inputWrapper">
+        <div class="inputLabel">MM/YY</div>
+        <input required type="text" name="date" placeholder="MM/YY"/>
+      </div>
+      <div class="inputWrapper">
+        <div class="inputLabel">CVC</div>
+        <input required type="number" name="cvc" placeholder="CVC"/>
+      </div>
+      <div class="inputWrapper ctaWrapper">
+        <button type="submit" class="cta green">ORDER ME</button>
+      </div>
+    </form>
+  </div>
+</div>

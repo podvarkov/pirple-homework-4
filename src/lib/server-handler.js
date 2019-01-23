@@ -1,7 +1,6 @@
 const url = require('url')
 const {StringDecoder} = require('string_decoder')
 const routes = require('../routes')
-const log = require('util').debuglog('server')
 const {safeParse} = require('./helpers')
 
 const serverHandler = (req, res) => {
@@ -39,10 +38,14 @@ const serverHandler = (req, res) => {
     }
 
     chosenRoute(req, (response) => {
-      log(req)
-      res.setHeader('Content-Type', response.type || 'text/plain')
-      res.writeHeader(response.status)
-      res.end(response.payload)
+      if (response.redirect) {
+        res.writeHeader(302, {Location: response.redirect})
+        res.end()
+      } else {
+        res.setHeader('Content-Type', response.type || 'text/plain')
+        res.writeHeader(response.status)
+        res.end(response.payload)
+      }
     })
   })
 }

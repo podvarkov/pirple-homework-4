@@ -6,13 +6,12 @@
 
 <div class="formWrapper">
   <form id="accountEdit1" action="/api/users" method="PUT">
-    <input type="hidden" name="_method" value="PUT"/>
     <div class="formError"></div>
     <div class="formSuccess">Your Changes Have Been Saved</div>
     <input class="hiddenPhoneNumberInput"  type="hidden" name="phone" />
     <div class="inputWrapper">
-      <div class="inputLabel">Phone Number</div>
-      <input class="disabled displayPhoneInput" type="text" name="displayPhone" disabled />
+      <div class="inputLabel">Email address</div>
+      <input type="text" name="email" placeholder="examle@example.com"/>
     </div>
     <div class="inputWrapper">
       <div class="inputLabel">First Name</div>
@@ -21,6 +20,10 @@
     <div class="inputWrapper">
       <div class="inputLabel">Last Name</div>
       <input class="lastNameInput" type="text" name="lastName" placeholder="Smith" />
+    </div>
+    <div class="inputWrapper">
+      <div class="inputLabel">Street address</div>
+      <input class="addressInput" type="text" name="address"/>
     </div>
     <div class="inputWrapper ctaWrapper">
       <button type="submit" class="cta green">Save Changes</button>
@@ -33,8 +36,8 @@
 <div class="formWrapper">
   <form id="accountEdit2" action="/api/users" method="PUT">
     <input type="hidden" name="_method" value="PUT"/>
-    <div class="formError"></div>
-    <div class="formSuccess">Your New Password Has Been Saved</div>
+    <div class="p_formError formError"></div>
+    <div class="p_formSuccess formSuccess">Your New Password Has Been Saved</div>
     <input class="hiddenPhoneNumberInput" type="hidden" name="phone" />
     <div class="inputWrapper">
       <div class="inputLabel">Choose a New Password</div>
@@ -54,7 +57,6 @@
     <input type="hidden" name="_method" value="DELETE"/>
     <div class="formError"></div>
     <div class="warning">Warning: This action cannot be undone. Dont click this button on accident!</div>
-    <input class="hiddenPhoneNumberInput" type="hidden" name="phone" />
     <div class="inputWrapper ctaWrapper">
       <button type="submit" class="cta red">Delete Account</button>
     </div>

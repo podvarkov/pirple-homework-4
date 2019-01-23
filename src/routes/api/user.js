@@ -50,7 +50,6 @@ users.post = (req, cb) => {
 
 //update user's data by id
 users.put = (req, cb) => {
-
   //parse token
   const token = parseToken(req.headers.authorization)
 
