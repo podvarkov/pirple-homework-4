@@ -2,12 +2,12 @@
  * user cart handlers
  */
 
-const db = require('../lib/db')
-const f = require('../lib/functions')
-const {createCharge} = require('../lib/stripe')
-const {parseToken} = require('../lib/helpers')
-const {NotFoundError, OkResponse, BadRequestError} = require('../lib/response')
-const {sendEmail} = require('../lib/mailgun')
+const db = require('../../lib/db')
+const f = require('../../lib/functions')
+const {createCharge} = require('../../lib/stripe')
+const {parseToken} = require('../../lib/helpers')
+const {NotFoundError, OkResponse, BadRequestError} = require('../../lib/response')
+const {sendEmail} = require('../../lib/mailgun')
 const log = require('util').debuglog('orders')
 
 // orders route container

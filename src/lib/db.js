@@ -93,7 +93,9 @@ const readToken = (token) => {
 
 //products helpers
 const getProducts = () => getAll('products')
-const getProduct = (id) => read('products', id)
+const getProduct = (id) => read('products', id).catch(() => {
+  throw new BadRequestError('Product not found')
+})
 
 //cart helpers
 const getCart = (userId) => read('carts', userId).catch(() => [])

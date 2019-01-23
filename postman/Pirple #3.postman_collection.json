@@ -24,13 +24,14 @@
 							"raw": "{\"name\":\"Hahn, Emmie IV\",\"address\":\"30992 Bogan Falls\",\"username\":\"Hahn\",\"email\":\"Otho24@hotmail.com\",\"password\":\"Emmie\"} "
 						},
 						"url": {
-							"raw": "http://localhost:{{PORT}}/users",
+							"raw": "http://localhost:{{PORT}}/api/users",
 							"protocol": "http",
 							"host": [
 								"localhost"
 							],
 							"port": "{{PORT}}",
 							"path": [
+								"api",
 								"users"
 							]
 						},
@@ -53,13 +54,14 @@
 									"raw": "{\"name\":\"Hahn, Emmie IV\",\"address\":\"30992 Bogan Falls\",\"username\":\"Hahn\",\"email\":\"Otho24@hotmail.com\",\"password\":\"Emmie\"} "
 								},
 								"url": {
-									"raw": "http://localhost:{{PORT}}/users",
+									"raw": "http://localhost:{{PORT}}/api/users",
 									"protocol": "http",
 									"host": [
 										"localhost"
 									],
 									"port": "{{PORT}}",
 									"path": [
+										"api",
 										"users"
 									]
 								}
@@ -127,13 +129,14 @@
 							"raw": "{\n    \"name\": \"Max Podvarkov Updated\",\n    \"address\": \"BIY 80-91\",\n    \"email\": \"i.snova2.bebebe@gmail.com\",\n    \"username\": \"MaxUptaded\",\n    \"password\": \"123\"\n}"
 						},
 						"url": {
-							"raw": "http://localhost:{{PORT}}/users",
+							"raw": "http://localhost:{{PORT}}/api/users",
 							"protocol": "http",
 							"host": [
 								"localhost"
 							],
 							"port": "{{PORT}}",
 							"path": [
+								"api",
 								"users"
 							]
 						},
@@ -161,13 +164,14 @@
 									"raw": "{\n    \"name\": \"New Hanh\",\n    \"address\": \"BIY 80-91\",\n    \"email\": \"i.snova2.bebebe@gmail.com\"\n}"
 								},
 								"url": {
-									"raw": "http://localhost:{{PORT}}/users",
+									"raw": "http://localhost:{{PORT}}/api/users",
 									"protocol": "http",
 									"host": [
 										"localhost"
 									],
 									"port": "{{PORT}}",
 									"path": [
+										"api",
 										"users"
 									]
 								}
@@ -226,13 +230,14 @@
 							"raw": ""
 						},
 						"url": {
-							"raw": "http://localhost:{{PORT}}/users",
+							"raw": "http://localhost:{{PORT}}/api/users",
 							"protocol": "http",
 							"host": [
 								"localhost"
 							],
 							"port": "{{PORT}}",
 							"path": [
+								"api",
 								"users"
 							]
 						},
@@ -249,13 +254,14 @@
 									"raw": ""
 								},
 								"url": {
-									"raw": "http://localhost:{{PORT}}/users",
+									"raw": "http://localhost:{{PORT}}/api/users",
 									"protocol": "http",
 									"host": [
 										"localhost"
 									],
 									"port": "{{PORT}}",
 									"path": [
+										"api",
 										"users"
 									]
 								}
@@ -301,10 +307,10 @@
 							"listen": "test",
 							"script": {
 								"id": "4078a246-fecb-4ac5-8f49-4c7f7a5f2eba",
-								"type": "text/javascript",
 								"exec": [
 									""
-								]
+								],
+								"type": "text/javascript"
 							}
 						}
 					],
@@ -323,13 +329,14 @@
 						"header": [],
 						"body": {},
 						"url": {
-							"raw": "http://localhost:{{PORT}}/users",
+							"raw": "http://localhost:{{PORT}}/api/users",
 							"protocol": "http",
 							"host": [
 								"localhost"
 							],
 							"port": "{{PORT}}",
 							"path": [
+								"api",
 								"users"
 							]
 						},
@@ -354,16 +361,17 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n\t\"username\":\"a\",\n\t\"password\":\"a\"\n} "
+							"raw": "{\n\t\"username\":\"Max\",\n\t\"password\":\"9r9e9w9q\"\n} "
 						},
 						"url": {
-							"raw": "http://localhost:{{PORT}}/session",
+							"raw": "http://localhost:{{PORT}}/api/session",
 							"protocol": "http",
 							"host": [
 								"localhost"
 							],
 							"port": "{{PORT}}",
 							"path": [
+								"api",
 								"session"
 							]
 						},
@@ -386,13 +394,14 @@
 									"raw": "{\n\t\"username\":\"Hahn\",\n\t\"password\":\"Emmie\"\n} "
 								},
 								"url": {
-									"raw": "http://localhost:{{PORT}}/session",
+									"raw": "http://localhost:{{PORT}}/api/session",
 									"protocol": "http",
 									"host": [
 										"localhost"
 									],
 									"port": "{{PORT}}",
 									"path": [
+										"api",
 										"session"
 									]
 								}
@@ -451,13 +460,14 @@
 							"raw": ""
 						},
 						"url": {
-							"raw": "http://localhost:{{PORT}}/session",
+							"raw": "http://localhost:{{PORT}}/api/session",
 							"protocol": "http",
 							"host": [
 								"localhost"
 							],
 							"port": "{{PORT}}",
 							"path": [
+								"api",
 								"session"
 							]
 						},
@@ -478,7 +488,7 @@
 							"bearer": [
 								{
 									"key": "token",
-									"value": "057c3e09-df38-4b51-a5a4-9acc0112214d",
+									"value": "593ac474-4a1a-4848-bb99-6be6af686bd4",
 									"type": "string"
 								}
 							]
@@ -490,13 +500,14 @@
 							"raw": ""
 						},
 						"url": {
-							"raw": "http://localhost:{{PORT}}/products",
+							"raw": "http://localhost:{{PORT}}/api/products",
 							"protocol": "http",
 							"host": [
 								"localhost"
 							],
 							"port": "{{PORT}}",
 							"path": [
+								"api",
 								"products"
 							]
 						},
@@ -513,13 +524,14 @@
 									"raw": ""
 								},
 								"url": {
-									"raw": "http://localhost:{{PORT}}/products",
+									"raw": "http://localhost:{{PORT}}/api/products",
 									"protocol": "http",
 									"host": [
 										"localhost"
 									],
 									"port": "{{PORT}}",
 									"path": [
+										"api",
 										"products"
 									]
 								}
@@ -571,7 +583,7 @@
 							"bearer": [
 								{
 									"key": "token",
-									"value": "057c3e09-df38-4b51-a5a4-9acc0112214d",
+									"value": "593ac474-4a1a-4848-bb99-6be6af686bd4",
 									"type": "string"
 								}
 							]
@@ -583,13 +595,14 @@
 							"raw": ""
 						},
 						"url": {
-							"raw": "http://localhost:{{PORT}}/cart",
+							"raw": "http://localhost:{{PORT}}/api/cart",
 							"protocol": "http",
 							"host": [
 								"localhost"
 							],
 							"port": "{{PORT}}",
 							"path": [
+								"api",
 								"cart"
 							]
 						},
@@ -606,13 +619,14 @@
 									"raw": ""
 								},
 								"url": {
-									"raw": "http://localhost:{{PORT}}/cart",
+									"raw": "http://localhost:{{PORT}}/api/cart",
 									"protocol": "http",
 									"host": [
 										"localhost"
 									],
 									"port": "{{PORT}}",
 									"path": [
+										"api",
 										"cart"
 									]
 								}
@@ -659,29 +673,34 @@
 							"bearer": [
 								{
 									"key": "token",
-									"value": "057c3e09-df38-4b51-a5a4-9acc0112214d",
+									"value": "593ac474-4a1a-4848-bb99-6be6af686bd4",
 									"type": "string"
 								}
 							]
 						},
 						"method": "POST",
-						"header": [],
-						"body": {},
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\"productId\": \"00c5078e-8c24-493e-8e87-f3ab07bbdee\"}"
+						},
 						"url": {
-							"raw": "http://localhost:{{PORT}}/cart?productId=9b8780ee-555a-49ae-9df4-135a265f95e8",
+							"raw": "http://localhost:{{PORT}}/api/cart",
 							"protocol": "http",
 							"host": [
 								"localhost"
 							],
 							"port": "{{PORT}}",
 							"path": [
+								"api",
 								"cart"
-							],
-							"query": [
-								{
-									"key": "productId",
-									"value": "9b8780ee-555a-49ae-9df4-135a265f95e8"
-								}
 							]
 						},
 						"description": "Add product to user's cart\n/cart?productId=productId"
@@ -691,23 +710,28 @@
 							"name": "Add to cart",
 							"originalRequest": {
 								"method": "POST",
-								"header": [],
-								"body": {},
+								"header": [
+									{
+										"key": "Content-Type",
+										"name": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\"productId\": \"00c5078e-8c24-493e-8e87-f3ab07bbdeea\"}"
+								},
 								"url": {
-									"raw": "http://localhost:{{PORT}}/cart?productId=00c5078e-8c24-493e-8e87-f3ab07bbdeea",
+									"raw": "http://localhost:{{PORT}}/api/cart",
 									"protocol": "http",
 									"host": [
 										"localhost"
 									],
 									"port": "{{PORT}}",
 									"path": [
+										"api",
 										"cart"
-									],
-									"query": [
-										{
-											"key": "productId",
-											"value": "00c5078e-8c24-493e-8e87-f3ab07bbdeea"
-										}
 									]
 								}
 							},
@@ -762,13 +786,14 @@
 						"header": [],
 						"body": {},
 						"url": {
-							"raw": "http://localhost:{{PORT}}/cart?productId=00c5078e-8c24-493e-8e87-f3ab07bbdeea",
+							"raw": "http://localhost:{{PORT}}/api/cart?productId=00c5078e-8c24-493e-8e87-f3ab07bbdeea",
 							"protocol": "http",
 							"host": [
 								"localhost"
 							],
 							"port": "{{PORT}}",
 							"path": [
+								"api",
 								"cart"
 							],
 							"query": [
@@ -788,13 +813,14 @@
 								"header": [],
 								"body": {},
 								"url": {
-									"raw": "http://localhost:{{PORT}}/cart?productId=00c5078e-8c24-493e-8e87-f3ab07bbdeea",
+									"raw": "http://localhost:{{PORT}}/api/cart?productId=00c5078e-8c24-493e-8e87-f3ab07bbdeea",
 									"protocol": "http",
 									"host": [
 										"localhost"
 									],
 									"port": "{{PORT}}",
 									"path": [
+										"api",
 										"cart"
 									],
 									"query": [
@@ -852,7 +878,7 @@
 							"bearer": [
 								{
 									"key": "token",
-									"value": "057c3e09-df38-4b51-a5a4-9acc0112214d",
+									"value": "593ac474-4a1a-4848-bb99-6be6af686bd4",
 									"type": "string"
 								}
 							]
@@ -864,13 +890,14 @@
 							"raw": ""
 						},
 						"url": {
-							"raw": "http://localhost:{{PORT}}/orders",
+							"raw": "http://localhost:{{PORT}}/api/orders",
 							"protocol": "http",
 							"host": [
 								"localhost"
 							],
 							"port": "{{PORT}}",
 							"path": [
+								"api",
 								"orders"
 							]
 						},
@@ -886,7 +913,7 @@
 							"bearer": [
 								{
 									"key": "token",
-									"value": "057c3e09-df38-4b51-a5a4-9acc0112214d",
+									"value": "593ac474-4a1a-4848-bb99-6be6af686bd4",
 									"type": "string"
 								}
 							]
@@ -898,13 +925,14 @@
 							"raw": ""
 						},
 						"url": {
-							"raw": "http://localhost:{{PORT}}/orders",
+							"raw": "http://localhost:{{PORT}}/api/orders",
 							"protocol": "http",
 							"host": [
 								"localhost"
 							],
 							"port": "{{PORT}}",
 							"path": [
+								"api",
 								"orders"
 							]
 						},
