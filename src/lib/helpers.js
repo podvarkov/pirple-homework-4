@@ -58,18 +58,6 @@ const getAssets = async _path => {
   return await read(path.join(__dirname, '../..', _path))
 }
 
-const parseArgs = (command, line) => {
-  const transform = (array, obj = {}) => {
-    if (!array.length) return obj
-    const [key,val,...rest] = array
-    obj[key] = val
-    return rest.length < 2 ? obj : transform(rest, obj)
-  }
-
-  const rawArgs = line.replace(command, '').trim().split(' ')
-  return transform(rawArgs)
-}
-
 module.exports = {
   safeParse,
   uuid,
@@ -78,5 +66,4 @@ module.exports = {
   parseTemplate,
   wrapPage,
   getAssets,
-  parseArgs
 }
