@@ -36,7 +36,7 @@ users.post = (req, cb) => {
         if (users.length) {
           cb(new ValidationError('username must be unique'))
         } else {
-          return db.users.createUser(req.body)
+          return db.users.createUser(f.assoc('created_at', Date.now(), req.body))
             .then((user) => cb(new OkResponse(f.dissoc('password', user))))
         }
       })

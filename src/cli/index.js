@@ -6,6 +6,7 @@ const os = require('os')
 const EventEmitter = require('events')
 
 const f = require('../lib/functions')
+const db = require('../lib/db')
 const {hLine, centered, colorify, parseArgs, colors} = require('./helpers')
 
 
@@ -70,8 +71,9 @@ responders.man = () => {
     acc += format('%s%s%s\n', colorify(colors.fgMagenta, [command, option].join(' ')), ' '.repeat(padding), man)
     return acc
   }, '')
-  message = format('%s\n%s\n%s%s', centered('CLI manual'), hLine('='), message, hLine('='))
+  message = format('%s\n%s\n%s%s', centered('CLI MANUAL'), hLine('='), message, hLine('='))
   console.log(message)
+  cliInput.prompt()
 }
 
 responders.exit = () => {
@@ -90,8 +92,20 @@ responders['order-detail'] = () => {
   console.log('order-detail')
 }
 
-responders.users = () => {
-  console.log('users')
+responders.users = async () => {
+  let users = await db.users.getUsers()
+  users = users.filter(({created_at}) => created_at > (Date.now() - 86400000))
+
+  users = users.map(user => {
+    return f.toPairs(user).map(([key, value]) => {
+      let padding = Math.max(...f.toPairs(user).map(([key]) => key.length))
+      padding = padding + 15 - (key.length)
+      return format('%s%s%s\n', colorify(colors.fgMagenta, key), ' '.repeat(padding), value)
+    }).join('')
+  })
+
+  console.log('%s\n%s\n%s', centered('USERS'), hLine('='), users.join(hLine('=')))
+  cliInput.prompt()
 }
 
 responders['user-detail'] = () => {
@@ -127,8 +141,9 @@ responders.stats = () => {
     return acc
   }, '')
 
-  message = format('%s\n%s\n%s%s', centered('System Stats'), hLine('='), message, hLine('='))
+  message = format('%s\n%s\n%s%s', centered('SYSTEM STATS'), hLine('='), message, hLine('='))
   console.log(message)
+  cliInput.prompt()
 }
 
 //event handlers
@@ -163,8 +178,6 @@ cliInput.on('line', (line) => {
   } else {
     emitter.emit('help')
   }
-
-  cliInput.prompt()
 })
 
 cliInput.on('close', () => process.exit(0))
