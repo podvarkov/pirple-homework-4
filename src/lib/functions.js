@@ -23,6 +23,7 @@ const equal = (x1, x2) => x1 === x2
 const propEq = (key, value, obj) => prop(key, obj) === value
 const add = (x1, x2) => x1 + x2
 const path = (path, value) => path.reduce((acc, el) => acc ? acc[el] : undefined, value)
+const toPairs = obj => Object.entries(obj)
 
 
 module.exports = {
@@ -37,5 +38,6 @@ module.exports = {
   propEq: _curry(propEq),
   equal: _curry(equal),
   add: _curry(add),
-  path: _curry(path)
+  path: _curry(path),
+  toPairs
 }

@@ -1,9 +1,13 @@
 /* eslint-disable no-console */
 const readline = require('readline')
 const {format} = require('util')
+const v8 = require('v8')
+const os = require('os')
 const EventEmitter = require('events')
+
 const f = require('../lib/functions')
 const {hLine, centered, colorify, parseArgs, colors} = require('./helpers')
+
 
 class Emitter extends EventEmitter {
 }
@@ -44,6 +48,10 @@ const commands = [
     command: 'user-detail',
     man: 'Lookup the details of a specific user by email address',
     option: '--id'
+  },
+  {
+    command: 'stats',
+    man: 'View system stats'
   }
 ]
 
@@ -56,10 +64,10 @@ responders.help = () => {
 }
 
 responders.man = () => {
-  let message = commands.reduce((acc, {command, man, option=''}) => {
-    let padding = Math.max(...commands.map(({command, option}) => (command+option).length))
-    padding = padding + 15 - ((command+option).length)
-    acc += format('%s%s%s\n', colorify(colors.fgCyan, [command, option].join(' ')), ' '.repeat(padding), man)
+  let message = commands.reduce((acc, {command, man, option = ''}) => {
+    let padding = Math.max(...commands.map(({command, option}) => (command + option).length))
+    padding = padding + 15 - ((command + option).length)
+    acc += format('%s%s%s\n', colorify(colors.fgMagenta, [command, option].join(' ')), ' '.repeat(padding), man)
     return acc
   }, '')
   message = format('%s\n%s\n%s%s', centered('CLI manual'), hLine('='), message, hLine('='))
@@ -88,6 +96,39 @@ responders.users = () => {
 
 responders['user-detail'] = () => {
   console.log('user-detail')
+}
+
+responders.stats = () => {
+  const {
+    malloced_memory,
+    peak_malloced_memory,
+    used_heap_size,
+    total_heap_size,
+    heap_size_limit
+  } = v8.getHeapStatistics()
+
+  let stats = {
+    'Load Average': os.loadavg().join(' '),
+    'CPU Count': os.cpus().length,
+    'Free memory': os.freemem(),
+    'Current Malloced Memory': malloced_memory,
+    'Peak Malloced Memory': peak_malloced_memory,
+    'Allocated Head Used (%)': (used_heap_size / total_heap_size) * 100,
+    'Available Heap Allocated (%)': (total_heap_size / heap_size_limit) * 100,
+    'Uptime': format('%s Seconds', os.uptime())
+  }
+
+  stats = f.toPairs(stats)
+
+  let message = stats.reduce((acc, [key, value]) => {
+    let padding = Math.max(...stats.map(([key]) => key.length))
+    padding = padding + 15 - (key.length)
+    acc += format('%s%s%s\n', colorify(colors.fgMagenta, key), ' '.repeat(padding), value)
+    return acc
+  }, '')
+
+  message = format('%s\n%s\n%s%s', centered('System Stats'), hLine('='), message, hLine('='))
+  console.log(message)
 }
 
 //event handlers
