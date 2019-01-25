@@ -80,8 +80,18 @@ responders.exit = () => {
   cliInput.emit('close')
 }
 
-responders.menu = () => {
-  console.log('menu')
+responders.menu = async () => {
+  let menu = await db.products.getProducts()
+  menu = menu.map(product => {
+    return f.toPairs(product).map(([key, value]) => {
+      let padding = Math.max(...f.toPairs(product).map(([key]) => key.length))
+      padding = padding + 15 - (key.length)
+      return format('%s%s%s\n', colorify(colors.fgMagenta, key), ' '.repeat(padding), value)
+    }).join('')
+  })
+
+  console.log('%s\n%s\n%s', centered('MENU'), hLine('='), menu.join(hLine('=')))
+  cliInput.prompt()
 }
 
 responders.orders = () => {
