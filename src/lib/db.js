@@ -57,6 +57,7 @@ const createUser = (user) => {
 }
 
 const getUser = (id) => read('users', id)
+const getUserByEmail = (email) => getUsers().then(f.filter(f.propEq('email', email)))
 
 const updateUser = (user) => update('users', user.id, user)
   .catch(e => {
@@ -141,6 +142,7 @@ module.exports = {
   users: {
     createUser,
     getUser,
+    getUserByEmail,
     getUsers,
     removeUser,
     updateUser

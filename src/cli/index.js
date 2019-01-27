@@ -118,8 +118,24 @@ responders.users = async () => {
   cliInput.prompt()
 }
 
-responders['user-detail'] = () => {
-  console.log('user-detail')
+responders['user-detail'] = async (args) => {
+  if (!args['--email']) {
+    console.log(colorify(colors.fgRed, 'Must specify email'))
+  } else {
+    const usersByEmail = await db.users.getUserByEmail(args['--email'])
+    if (usersByEmail.length) {
+      const user = f.toPairs(f.first(usersByEmail)).map(([key, value]) => {
+        let padding = Math.max(...f.toPairs(f.first(usersByEmail)).map(([key]) => key.length))
+        padding = padding + 15 - (key.length)
+        return format('%s%s%s\n', colorify(colors.fgMagenta, key), ' '.repeat(padding), value)
+      }).join('')
+
+      console.log('%s\n%s%s', centered(f.prop('name', f.first(usersByEmail))), hLine('='), user)
+    } else {
+      console.log(colorify(colors.fgRed, 'User not found'))
+    }
+  }
+  cliInput.prompt()
 }
 
 responders.stats = () => {
