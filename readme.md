@@ -1,4 +1,4 @@
-## Homework Assignment #3
+## Homework Assignment #4
 
 This is the third of several homework assignments you'll receive in this course. In order to receive your certificate of completion (at the end of this course) you must complete all the assignments and receive a passing grade.
 
@@ -12,22 +12,25 @@ This is the third of several homework assignments you'll receive in this course.
 
 #### The Assignment (Scenario): 
 
-It is time to build a simple frontend for the Pizza-Delivery API you created in Homework Assignment #2. Please create a web app that allows customers to:
+It is time to build the Admin CLI for the pizza-delivery app you built in the previous assignments. Please build a CLI interface that would allow the manager of the pizza place to:
 
-* Signup on the site
+* View all the current menu items
 
-* View all the items available to order
+* View all the recent orders in the system (orders placed in the last 24 hours)
 
-* Fill up a shopping cart
+* Lookup the details of a specific order by order ID
 
-* Place an order (with fake credit card credentials), and receive an email receipt
+* View all the users who have signed up in the last 24 hours
 
+* Lookup the details of a specific user by email address
 This is an open-ended assignment. You can take any direction you'd like to go with it, as long as your project includes the requirements. It can include anything else you wish as well.
 
 #### Docs
 
 * Before start server run ./create-dirs.sh
 this will create all needed directories and generate 10 random pizzas for testing.
+
+* To start CLI as an independent process run ```node src/cli/index.js```
 
 * If you want to use eslint, run `npm install`
 
