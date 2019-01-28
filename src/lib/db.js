@@ -57,6 +57,7 @@ const createUser = (user) => {
 }
 
 const getUser = (id) => read('users', id)
+const getUserByEmail = (email) => getUsers().then(f.filter(f.propEq('email', email)))
 
 const updateUser = (user) => update('users', user.id, user)
   .catch(e => {
@@ -126,6 +127,10 @@ const clearCart = (userId) => create('carts', userId, [])
   })
 
 //orders helpers
+const getAllOrders = () => getAll('orders')
+  .then(f.flatten)
+  .catch(() => [])
+
 const getOrders = (userId) => read('orders', userId).catch(() => [])
 
 const createOrder = async (userId, order) => {
@@ -141,6 +146,7 @@ module.exports = {
   users: {
     createUser,
     getUser,
+    getUserByEmail,
     getUsers,
     removeUser,
     updateUser
@@ -161,6 +167,7 @@ module.exports = {
   },
   orders: {
     createOrder,
-    getOrders
+    getOrders,
+    getAllOrders
   }
 }

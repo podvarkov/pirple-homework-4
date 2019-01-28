@@ -65,5 +65,5 @@ module.exports = {
   parseToken,
   parseTemplate,
   wrapPage,
-  getAssets
+  getAssets,
 }

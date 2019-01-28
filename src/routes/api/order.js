@@ -58,7 +58,7 @@ orders.post = (req, cb) => {
     .then(({body: res}) => {
       order.chargeId = res.id
       order.balanceTransaction = res.balance_transaction
-      order.created = res.created
+      order.created = res.created * 1000
       order.paid = res.paid
       return db.orders.createOrder(id, order)
     })

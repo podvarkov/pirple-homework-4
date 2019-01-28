@@ -4,6 +4,8 @@ const handler = require('./lib/server-handler')
 const server = http.createServer(handler)
 const log = require('util').debuglog('server')
 
+
 server.listen(config.port, () => {
   log(`${config.envName} http server listening on port`, config.port)
+  require('./cli')
 })
