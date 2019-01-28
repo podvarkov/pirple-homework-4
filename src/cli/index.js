@@ -7,7 +7,7 @@ const EventEmitter = require('events')
 
 const f = require('../lib/functions')
 const db = require('../lib/db')
-const {hLine, centered, colorify, parseArgs, colors} = require('./helpers')
+const {hLine, centered, colorify, parseArgs, colors, objectToMsg} = require('./helpers')
 
 
 class Emitter extends EventEmitter {
@@ -82,13 +82,7 @@ responders.exit = () => {
 
 responders.menu = async () => {
   let menu = await db.products.getProducts()
-  menu = menu.map(product => {
-    return f.toPairs(product).map(([key, value]) => {
-      let padding = Math.max(...f.toPairs(product).map(([key]) => key.length))
-      padding = padding + 15 - (key.length)
-      return format('%s%s%s\n', colorify(colors.fgMagenta, key), ' '.repeat(padding), value)
-    }).join('')
-  })
+  menu = menu.map(objectToMsg)
 
   console.log('%s\n%s\n%s', centered('MENU'), hLine('='), menu.join(hLine('=')))
   cliInput.prompt()
@@ -100,14 +94,7 @@ responders.orders = async () => {
     .filter(({created}) => created > (Date.now() - 86400000)) //last 24 hours in ms
     .map(f.dissoc('cart'))
 
-  orders = orders.map(order => {
-    return f.toPairs(order).map(([key, value]) => {
-      let padding = Math.max(...f.toPairs(order).map(([key]) => key.length))
-      padding = padding + 15 - (key.length)
-      value = Array.isArray(value) ? value.join(',') : value
-      return format('%s%s%s\n', colorify(colors.fgMagenta, key), ' '.repeat(padding), value)
-    }).join('')
-  })
+  orders = orders.map(objectToMsg)
 
   console.log('%s\n%s\n%s', centered('ORDERS'), hLine('='), orders.join(hLine('=')))
   cliInput.prompt()
@@ -118,14 +105,8 @@ responders['order-detail'] = async (args) => {
 
   if (args['--userId']) {
     orders = await db.orders.getOrders(args['--userId'])
-    orders = orders.map(f.dissoc('cart')).map(order => {
-      return f.toPairs(order).map(([key, value]) => {
-        let padding = Math.max(...f.toPairs(order).map(([key]) => key.length))
-        padding = padding + 15 - (key.length)
-        value = Array.isArray(value) ? value.join(',') : value
-        return format('%s%s%s\n', colorify(colors.fgMagenta, key), ' '.repeat(padding), value)
-      }).join('')
-    })
+    orders = orders.map(f.dissoc('cart')).map(objectToMsg)
+
     console.log('%s\n%s\n%s', centered('ORDERS'), hLine('='), orders.join(hLine('=')))
   } else {
     if (args['--id']) {
@@ -133,19 +114,14 @@ responders['order-detail'] = async (args) => {
       const order = f.first(orders
         .filter(f.propEq('chargeId', args['--id']))
         .map(f.dissoc('cart')))
+
       if (!order) {
         console.log(colorify(colors.fgRed, 'Order not found'))
       } else {
-        const message = f.toPairs(order).map(([key, value]) => {
-          let padding = Math.max(...f.toPairs(order).map(([key]) => key.length))
-          padding = padding + 15 - (key.length)
-          value = Array.isArray(value) ? value.join(',') : value
-          return format('%s%s%s\n', colorify(colors.fgMagenta, key), ' '.repeat(padding), value)
-        }).join('')
-        console.log('%s\n%s\n%s', centered('ORDERS'), hLine('='), message)
+        const order = objectToMsg(order)
+        console.log('%s\n%s\n%s', centered('ORDERS'), hLine('='), order)
       }
-    }
-    else {
+    } else {
       console.log(colorify(colors.fgRed, 'Must specify ID or user ID'))
     }
   }
@@ -155,15 +131,7 @@ responders['order-detail'] = async (args) => {
 responders.users = async () => {
   let users = await db.users.getUsers()
   users = users.filter(({created_at}) => created_at > (Date.now() - 86400000)) //last 24 hours in ms
-
-  users = users.map(user => {
-    return f.toPairs(user).map(([key, value]) => {
-      let padding = Math.max(...f.toPairs(user).map(([key]) => key.length))
-      padding = padding + 15 - (key.length)
-      value = Array.isArray(value) ? value.join(',') : value
-      return format('%s%s%s\n', colorify(colors.fgMagenta, key), ' '.repeat(padding), value)
-    }).join('')
-  })
+  users = users.map(objectToMsg)
 
   console.log('%s\n%s\n%s', centered('USERS'), hLine('='), users.join(hLine('=')))
   cliInput.prompt()
@@ -174,13 +142,9 @@ responders['user-detail'] = async (args) => {
     console.log(colorify(colors.fgRed, 'Must specify email'))
   } else {
     const usersByEmail = await db.users.getUserByEmail(args['--email'])
-    if (usersByEmail.length) {
-      const user = f.toPairs(f.first(usersByEmail)).map(([key, value]) => {
-        let padding = Math.max(...f.toPairs(f.first(usersByEmail)).map(([key]) => key.length))
-        padding = padding + 15 - (key.length)
-        return format('%s%s%s\n', colorify(colors.fgMagenta, key), ' '.repeat(padding), value)
-      }).join('')
-
+    let user = f.first(usersByEmail)
+    if (user) {
+      user = objectToMsg(user)
       console.log('%s\n%s%s', centered(f.prop('name', f.first(usersByEmail))), hLine('='), user)
     } else {
       console.log(colorify(colors.fgRed, 'User not found'))
@@ -209,17 +173,10 @@ responders.stats = () => {
     'Uptime': format('%s Seconds', os.uptime())
   }
 
-  stats = f.toPairs(stats)
+  stats = objectToMsg(stats)
 
-  let message = stats.reduce((acc, [key, value]) => {
-    let padding = Math.max(...stats.map(([key]) => key.length))
-    padding = padding + 15 - (key.length)
-    acc += format('%s%s%s\n', colorify(colors.fgMagenta, key), ' '.repeat(padding), value)
-    return acc
-  }, '')
-
-  message = format('%s\n%s\n%s%s', centered('SYSTEM STATS'), hLine('='), message, hLine('='))
-  console.log(message)
+  stats = format('%s\n%s\n%s%s', centered('SYSTEM STATS'), hLine('='), stats, hLine('='))
+  console.log(stats)
   cliInput.prompt()
 }
 
@@ -227,7 +184,6 @@ responders.stats = () => {
 commands.map(({command}) => {
   emitter.on(command, responders[command])
 })
-
 
 //init CLI interface
 const cliInput = readline.createInterface({
@@ -242,19 +198,25 @@ const cliInput = readline.createInterface({
   }
 })
 
-//listen to user input
-cliInput.prompt()
-cliInput.on('line', (line) => {
+const emitCommand = (line) => {
   line = line.trim()
-  const matched = commands.filter(({command}) => line.toLowerCase().indexOf(command) !== -1)
+  const matched = commands.filter(({command}) => command === f.first(line.split(' ')))
 
   if (matched.length) {
     matched.map(({command}) => {
       emitter.emit(command, parseArgs(command, line))
     })
   } else {
-    emitter.emit('help')
+    console.log(colorify(colors.fgRed, 'Command not found'))
+    cliInput.prompt()
   }
-})
+}
+
+// listen to user input
+cliInput.on('line', emitCommand)
+
+console.log(colorify(colors.fgMagenta, 'CLI is running'))
+
+cliInput.prompt()
 
 cliInput.on('close', () => process.exit(0))

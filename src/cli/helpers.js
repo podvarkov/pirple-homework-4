@@ -1,4 +1,5 @@
 const {format} = require('util')
+const f = require('../lib/functions')
 
 const colors = {
   reset: '\x1b[0m',
@@ -36,11 +37,18 @@ const colorify = (color, str) => {
   return format('%s%s%s', color, str, colors.reset)
 }
 
+const objectToMsg = (obj) => f.toPairs(obj).map(([key, value]) => {
+  let padding = Math.max(...f.toPairs(obj).map(([key]) => key.length))
+  padding = padding + 15 - (key.length)
+  return format('%s%s%s\n', colorify(colors.fgMagenta, key), ' '.repeat(padding), value)
+}).join('')
+
 
 module.exports = {
   parseArgs,
   hLine,
   centered,
   colorify,
-  colors
+  objectToMsg,
+  colors,
 }
