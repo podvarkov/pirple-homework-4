@@ -24,10 +24,24 @@ const propEq = (key, value, obj) => prop(key, obj) === value
 const add = (x1, x2) => x1 + x2
 const path = (path, value) => path.reduce((acc, el) => acc ? acc[el] : undefined, value)
 const toPairs = obj => Object.entries(obj)
+const flatten = (array) => {
+  const responce = []
+  flat(array)
+  return responce
+
+  function flat(a) {
+    if (Array.isArray(a)) {
+      a.forEach(flat)
+    } else {
+      responce.push(a)
+    }
+  }
+}
 
 
 module.exports = {
   first,
+  flatten,
   assoc: _curry(assoc),
   prop: _curry(prop),
   merge: _curry(merge),

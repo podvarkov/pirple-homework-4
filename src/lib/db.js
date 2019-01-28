@@ -127,6 +127,10 @@ const clearCart = (userId) => create('carts', userId, [])
   })
 
 //orders helpers
+const getAllOrders = () => getAll('orders')
+  .then(f.flatten)
+  .catch(() => [])
+
 const getOrders = (userId) => read('orders', userId).catch(() => [])
 
 const createOrder = async (userId, order) => {
@@ -163,6 +167,7 @@ module.exports = {
   },
   orders: {
     createOrder,
-    getOrders
+    getOrders,
+    getAllOrders
   }
 }

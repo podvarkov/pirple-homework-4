@@ -38,8 +38,8 @@ const commands = [
   },
   {
     command: 'order-detail',
-    man: 'Lookup the details of a specific order by order ID',
-    option: '--id'
+    man: 'Lookup the details of a specific order by order ID | user Id',
+    option: '--id --userId'
   },
   {
     command: 'users',
@@ -94,22 +94,73 @@ responders.menu = async () => {
   cliInput.prompt()
 }
 
-responders.orders = () => {
-  console.log('orders')
+responders.orders = async () => {
+  let orders = await db.orders.getAllOrders()
+  orders = orders
+    .filter(({created}) => created > (Date.now() - 86400000)) //last 24 hours in ms
+    .map(f.dissoc('cart'))
+
+  orders = orders.map(order => {
+    return f.toPairs(order).map(([key, value]) => {
+      let padding = Math.max(...f.toPairs(order).map(([key]) => key.length))
+      padding = padding + 15 - (key.length)
+      value = Array.isArray(value) ? value.join(',') : value
+      return format('%s%s%s\n', colorify(colors.fgMagenta, key), ' '.repeat(padding), value)
+    }).join('')
+  })
+
+  console.log('%s\n%s\n%s', centered('ORDERS'), hLine('='), orders.join(hLine('=')))
+  cliInput.prompt()
 }
 
-responders['order-detail'] = () => {
-  console.log('order-detail')
+responders['order-detail'] = async (args) => {
+  let orders
+
+  if (args['--userId']) {
+    orders = await db.orders.getOrders(args['--userId'])
+    orders = orders.map(f.dissoc('cart')).map(order => {
+      return f.toPairs(order).map(([key, value]) => {
+        let padding = Math.max(...f.toPairs(order).map(([key]) => key.length))
+        padding = padding + 15 - (key.length)
+        value = Array.isArray(value) ? value.join(',') : value
+        return format('%s%s%s\n', colorify(colors.fgMagenta, key), ' '.repeat(padding), value)
+      }).join('')
+    })
+    console.log('%s\n%s\n%s', centered('ORDERS'), hLine('='), orders.join(hLine('=')))
+  } else {
+    if (args['--id']) {
+      orders = await db.orders.getAllOrders()
+      const order = f.first(orders
+        .filter(f.propEq('chargeId', args['--id']))
+        .map(f.dissoc('cart')))
+      if (!order) {
+        console.log(colorify(colors.fgRed, 'Order not found'))
+      } else {
+        const message = f.toPairs(order).map(([key, value]) => {
+          let padding = Math.max(...f.toPairs(order).map(([key]) => key.length))
+          padding = padding + 15 - (key.length)
+          value = Array.isArray(value) ? value.join(',') : value
+          return format('%s%s%s\n', colorify(colors.fgMagenta, key), ' '.repeat(padding), value)
+        }).join('')
+        console.log('%s\n%s\n%s', centered('ORDERS'), hLine('='), message)
+      }
+    }
+    else {
+      console.log(colorify(colors.fgRed, 'Must specify ID or user ID'))
+    }
+  }
+  cliInput.prompt()
 }
 
 responders.users = async () => {
   let users = await db.users.getUsers()
-  users = users.filter(({created_at}) => created_at > (Date.now() - 86400000))
+  users = users.filter(({created_at}) => created_at > (Date.now() - 86400000)) //last 24 hours in ms
 
   users = users.map(user => {
     return f.toPairs(user).map(([key, value]) => {
       let padding = Math.max(...f.toPairs(user).map(([key]) => key.length))
       padding = padding + 15 - (key.length)
+      value = Array.isArray(value) ? value.join(',') : value
       return format('%s%s%s\n', colorify(colors.fgMagenta, key), ' '.repeat(padding), value)
     }).join('')
   })
